@@ -1,0 +1,10 @@
+﻿.textBoxStyling {
+    max-width: none;
+    margin-bottom: .5rem;
+    height: auto !important;
+}
+
+.invoiceIcon {
+    height: 30px;
+    width: 30px;
+}

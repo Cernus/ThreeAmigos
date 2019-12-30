@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.ProductFacade", "ThreeAmigos.ProductFacade\ThreeAmigos.ProductFacade.csproj", "{35C5570F-499B-4181-A28E-C3375BE723CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.CustomerApp", "ThreeAmigos.CustomerApp\ThreeAmigos.CustomerApp.csproj", "{DD89E93A-1E7E-4C0D-BBFE-7AA293734D0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreeAmigos.CustomerApi", "ThreeAmigos.CustomerApi\ThreeAmigos.CustomerApi.csproj", "{9BF97DC3-243A-4473-AE64-A0F033EA4E65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.CustomerFacade", "ThreeAmigos.CustomerFacade\ThreeAmigos.CustomerFacade.csproj", "{49DB8DAA-A0CC-41E9-9199-845C102F5529}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.OrderFacade", "ThreeAmigos.OrderFacade\ThreeAmigos.OrderFacade.csproj", "{98B0D332-C673-45DF-A440-AE32FB58C591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.ReviewFacade", "ThreeAmigos.ReviewFacade\ThreeAmigos.ReviewFacade.csproj", "{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35C5570F-499B-4181-A28E-C3375BE723CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C5570F-499B-4181-A28E-C3375BE723CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C5570F-499B-4181-A28E-C3375BE723CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35C5570F-499B-4181-A28E-C3375BE723CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD89E93A-1E7E-4C0D-BBFE-7AA293734D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD89E93A-1E7E-4C0D-BBFE-7AA293734D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD89E93A-1E7E-4C0D-BBFE-7AA293734D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD89E93A-1E7E-4C0D-BBFE-7AA293734D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF97DC3-243A-4473-AE64-A0F033EA4E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF97DC3-243A-4473-AE64-A0F033EA4E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF97DC3-243A-4473-AE64-A0F033EA4E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF97DC3-243A-4473-AE64-A0F033EA4E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49DB8DAA-A0CC-41E9-9199-845C102F5529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49DB8DAA-A0CC-41E9-9199-845C102F5529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49DB8DAA-A0CC-41E9-9199-845C102F5529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49DB8DAA-A0CC-41E9-9199-845C102F5529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B0D332-C673-45DF-A440-AE32FB58C591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B0D332-C673-45DF-A440-AE32FB58C591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B0D332-C673-45DF-A440-AE32FB58C591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B0D332-C673-45DF-A440-AE32FB58C591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {418BDDA8-958D-4A2B-A4EF-2C3BEE02286E}
+	EndGlobalSection
+EndGlobal
