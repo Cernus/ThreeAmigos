@@ -18,6 +18,14 @@ namespace ThreeAmigos.CustomerApp
             // TODO: Security: Redirect if not logged in
             if (!Page.IsPostBack)
             {
+                try
+                {
+                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
+                }
+                catch
+                {
+                    Response.Redirect("~/Default");
+                }
                 PopulatePage();
             }
         }
@@ -47,7 +55,15 @@ namespace ThreeAmigos.CustomerApp
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Default");
+            object refUrl = ViewState["RefUrl"];
+            if (refUrl != null)
+            {
+                Response.Redirect((string)refUrl);
+            }
+            else
+            {
+                Response.Redirect("~/Default");
+            }
         }
     }
 }

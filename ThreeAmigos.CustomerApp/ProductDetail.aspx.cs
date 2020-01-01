@@ -16,17 +16,37 @@ namespace ThreeAmigos.CustomerApp
         {
             if (!Page.IsPostBack)
             {
-                productId = Int32.Parse(Request.QueryString["Id"]);
-
-                // Redirect to Home page if product does not exist
                 try
                 {
-                    PopulatePage();
+                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
                 }
-                catch (Exception ex)
+                catch
                 {
                     Response.Redirect("~/Default");
                 }
+
+                //Redirect to home if have not navigate here through Store Page
+                string previousPage = (string)ViewState["RefUrl"];
+                string substring = previousPage.Substring(previousPage.LastIndexOf('/') + 1);
+                if(substring == "Store")
+                {
+                    productId = Int32.Parse(Request.QueryString["Id"]);
+
+                    // Redirect to Home page if product does not exist
+                    try
+                    {
+                        PopulatePage();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Redirect("~/Default");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("~/Default");
+                }
+                
             }
 
         }
@@ -83,33 +103,50 @@ namespace ThreeAmigos.CustomerApp
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Default");
+            object refUrl = ViewState["RefUrl"];
+            if (refUrl != null)
+            {
+                Response.Redirect((string)refUrl);
+            }
+            else
+            {
+                Response.Redirect("~/Default");
+            }
         }
         private void PopulatePage()
         {
             // Get product
             Product product = ProductService.GetProduct(productId);
 
-            // Display Name
-            if (product.Name != null)
+            if (product != null)
             {
-                nameLabel.Text = product.Name;
+                // Display Name
+                if (product.Name != null)
+                {
+                    nameLabel.Text = product.Name;
+                }
+
+                // Display Category
+                categoryLabel.Text = product.Category;
+
+                // Display Brand
+                brandLabel.Text = product.Brand;
+
+                // Display Description
+                descriptionLabel.Text = product.Description;
+
+                // Display Price
+                priceLabel.Text = product.Price.ToString();
+
+                // Display StockLevel
+                stockLevelLabel.Text = product.StockLevel.ToString();
             }
-
-            // Display Category
-            categoryLabel.Text = product.Category;
-
-            // Display Brand
-            brandLabel.Text = product.Brand;
-
-            // Display Description
-            descriptionLabel.Text = product.Description;
-
-            // Display Price
-            priceLabel.Text = product.Price.ToString();
-
-            // Display StockLevel
-            stockLevelLabel.Text = product.StockLevel.ToString();
+            else
+            {
+                throw new NullReferenceException("Product not found");
+            }
         }
+
+
     }
 }

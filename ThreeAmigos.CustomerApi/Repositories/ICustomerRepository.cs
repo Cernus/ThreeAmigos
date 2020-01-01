@@ -10,7 +10,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
     public interface ICustomerRepository
     {
         Task<bool> SaveAllAsync();
-        IEnumerable<Customer> GetCustomers();
+        Task<List<Customer>> GetCustomers();
         Task<CustomerDetailDto> GetCustomer(int id);
         Task<Customer> UpdateCustomer(int id, CustomerUpdateDto customer);
         Task<Customer> CreateCustomer(CustomerUpdateDto customer);

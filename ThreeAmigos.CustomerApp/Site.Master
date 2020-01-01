@@ -84,9 +84,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a id="CustomerDetailLink" class="dropdown-item" runat="server">Customer Detail</a>
                             <a id="UpdateCustomerLink" class="dropdown-item" runat="server">Update Customer</a>
-                            <a class="dropdown-item" href="RequestDelete">Request Delete</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="RequestDelete">Request Delete</a>
                         </div>
                     </li>
                     <li class="nav-item">

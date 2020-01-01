@@ -18,10 +18,10 @@ namespace ThreeAmigos.CustomerApi.Repositories
         }
 
         // TODO
-        public IEnumerable<Customer> GetCustomers()
+        public async Task<List<Customer>> GetCustomers()
         {
-            return _context.Customers
-                .ToList();
+            var customers = await _context.Customers.ToListAsync();
+            return customers;
         }
 
         public async Task<CustomerDetailDto> GetCustomer(int id)
@@ -30,17 +30,24 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 .Where(c => c.CustomerId == id)
                 .FirstOrDefaultAsync();
 
-            return new CustomerDetailDto {
-                Username = customer.Username,
-                Password = customer.Password,
-                FirstName = customer.FirstName,
-                SecondName = customer.SecondName,
-                Address = customer.Address,
-                EmailAddress = customer.EmailAddress,
-                Tel = customer.Tel,
-                Sell_To = customer.Sell_To
-            };
-
+            if(customer != null)
+            {
+                return new CustomerDetailDto
+                {
+                    Username = customer.Username,
+                    Password = customer.Password,
+                    FirstName = customer.FirstName,
+                    SecondName = customer.SecondName,
+                    Address = customer.Address,
+                    EmailAddress = customer.EmailAddress,
+                    Tel = customer.Tel,
+                    Sell_To = customer.Sell_To
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<Customer> UpdateCustomer(int id, CustomerUpdateDto customer)

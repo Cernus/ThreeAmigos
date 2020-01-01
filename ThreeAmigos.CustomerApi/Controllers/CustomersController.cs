@@ -14,44 +14,22 @@ namespace ThreeAmigos.CustomerApi.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        // TODO: Delete this once repository is fully implemented
-        private readonly CustomerContext _context;
         public ICustomerRepository _customerRepository { get; set; }
+        public IProductRepository _productRepository { get; set; }
 
-        // TODO: Remove context from signiture
-        public CustomersController(CustomerContext context, ICustomerRepository customerRepository)
+        public CustomersController(ICustomerRepository customerRepository, IProductRepository productRepository)
         {
-            _context = context;
             _customerRepository = customerRepository;
-
-            if (_context.Customers.Count() == 0)
-            {
-                // Create a new Customer if collection is empty,
-                // which means you can't delete all Customers.
-                _ = _context.Customers.Add(new Customer
-                {
-                    Username = "Admin",
-                    Password = "password",
-                    FirstName = "Joe",
-                    SecondName = "Bloggs",
-                    Address = "49 Balsham Road,Harrold,MK43 5XZ",
-                    EmailAddress = "johndoe@gmail.com",
-                    Tel = "07015234278",
-                    Registered = Convert.ToDateTime("2010-08-14  12:33:36.590"),
-                    LastOnline = Convert.ToDateTime("2010-08-14  12:33:36.590"),
-                    Sell_To = true,
-                    Active = true
-                });
-                _context.SaveChanges();
-            }
+            _productRepository = productRepository;
         }
 
-        // TODO: Not not implemented/used
         // GET: api/Customers/Details
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> Details()
         {
-            return await _context.Customers.ToListAsync();
+            //return await _context.Customers.ToListAsync();
+            List<Customer> customers = await _customerRepository.GetCustomers();
+            return customers;
         }
 
         // GET: api/Customers/Detail/5
@@ -77,7 +55,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
             if (entity == null)
             {
-                return NotFound("Customer with Username = " + customer.Username + " not found to update.");
+                return NotFound("Customer with Username = " + customer.Username + " was unable to be created");
             }
 
             if (customer.Username != entity.Username)
@@ -86,7 +64,6 @@ namespace ThreeAmigos.CustomerApi.Controllers
             }
 
             return Ok(entity);
-
         }
 
         // PUT: api/Customers/Update/5
@@ -191,6 +168,74 @@ namespace ThreeAmigos.CustomerApi.Controllers
             bool valid = await _customerRepository.HasAddressAndTel(id);
 
             return valid;
+        }
+
+        // GET: api/Customers/ProductDetail/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDto>> ProductDetail(int id)
+        {
+            ProductDto productDto = await _productRepository.GetProduct(id);
+
+            if (productDto == null)
+            {
+                return NotFound();
+            }
+
+            return productDto;
+        }
+
+        // GET: api/Customers/GetProductId/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<int>> ProductId(int id)
+        {
+            ProductDto productDto = await _productRepository.GetProduct(id);
+
+            if (productDto != null)
+            {
+                return Ok(productDto.ProductId);
+            }
+            else
+            {
+                return Ok(null);
+            }
+        }
+
+        // POST: api/Customers/CreateProduct
+        [HttpPost]
+        public async Task<ActionResult<ProductDto>> CreateProduct([FromBody]ProductDto product)
+        {
+            ProductDto entity = await _productRepository.CreateProduct(product);
+
+            if (entity == null)
+            {
+                return NotFound("A Product with ProductId = " + product.ProductId + " was unable to be created.");
+            }
+
+            if (product.Name != entity.Name)
+            {
+                return BadRequest();
+            }
+
+            return Ok(entity);
+        }
+
+        // PUT: api/Customers/UpdateProduct/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody]ProductDto product)
+        {
+            ProductDto entity = await _productRepository.UpdateProduct(product);
+
+            if (entity == null)
+            {
+                return NotFound("Product with Id = " + id.ToString() + " not found to update.");
+            }
+
+            if (id != entity.ProductId)
+            {
+                return BadRequest();
+            }
+
+            return Ok(entity);
         }
     }
 }

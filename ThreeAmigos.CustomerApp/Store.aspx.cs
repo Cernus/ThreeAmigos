@@ -24,6 +24,8 @@ namespace ThreeAmigos.CustomerApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // TODO: Handle case for no response from Store Api (allow user to navigate to ProductDetail page still from here)
+            // TODO: E.g. use data stored in Customer Api but display a warning that the data may be out of date
             if (!IsPostBack)
             {
                 PopulatePage();

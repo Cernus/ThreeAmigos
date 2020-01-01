@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ThreeAmigos.ProductFacade.Models
 {
-    public class Product
+    public class ProductDto
     {
-        public string ProductId { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public string Brand { get; set; }

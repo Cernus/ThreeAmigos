@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using ThreeAmigos.ProductFacade.Models;
 
@@ -12,5 +13,6 @@ namespace ThreeAmigos.ProductFacade
         string GetProduct(int id);
         bool InStock(int id);
         string GetProductName(int id);
+        HttpResponseMessage StoreProductData(string json);
     }
 }

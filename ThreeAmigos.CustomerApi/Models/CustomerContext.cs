@@ -12,6 +12,7 @@ namespace ThreeAmigos.CustomerApi.Models
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<ProductDto> Products { get; set; }
 
         internal Task<Customer> FindAsync(int id)
         {

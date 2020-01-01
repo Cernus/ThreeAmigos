@@ -9,6 +9,7 @@ using ThreeAmigos.CustomerApp.Services;
 namespace ThreeAmigos.CustomerApp
 {
     // TODO: Add validation for creating/updating customer (especially tel number)
+    // TODO: Add Back button
     public partial class CreateCustomer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
