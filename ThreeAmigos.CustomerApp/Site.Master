@@ -5,6 +5,8 @@
 <%--TODO: As additional constraints, the system must:
     Use the provided OAuth2 server for authentication – this will be distributed via Blackboard once the development phase has begun. --%>
 
+<%-- Publish to Azure App Service --%>
+<%--https://docs.microsoft.com/en-us/visualstudio/deployment/quickstart-deploy-to-azure?view=vs-2019--%>
 
 <html lang="en">
 <head runat="server">

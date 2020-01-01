@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+// TODO: Delete this
 namespace ThreeAmigos.CustomerApi.Controllers
 {
     [Route("api/[controller]")]

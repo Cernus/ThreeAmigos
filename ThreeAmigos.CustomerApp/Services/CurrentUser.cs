@@ -36,7 +36,7 @@ namespace ThreeAmigos.CustomerApp.Services
         // TODO
         public static int GetCustomerId()
         {
-            return 1;
+            return 2;
         }
 
         // Update Customer record in database
