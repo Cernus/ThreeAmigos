@@ -3,6 +3,7 @@ using ThreeAmigos.CustomerFacade;
 
 namespace ThreeAmigos.CustomerApp
 {
+    // TODO: Put in stuff that reshapes data. E.g. Required, format, etc
     public class Customer
     {
         public string Username { get; set; }

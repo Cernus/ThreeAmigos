@@ -93,6 +93,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 entity.Active = true;
 
                 _context.Add(entity);
+                // TODO: Should all other SaveChanges() be SaveChangesAsync()?
                 await _context.SaveChangesAsync();
 
                 return entity;
@@ -124,6 +125,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
             _context.Customers.Remove(entity);
+            _context.SaveChanges();
 
             return entity;
         }

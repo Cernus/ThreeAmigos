@@ -79,6 +79,9 @@
             </div>
         </div>
 
+        <!-- Reviews -->
+        <asp:Label ID="test" runat="server">[Reviews here]</asp:Label>
+
         <%--Buttons--%>
         <div class="row">
             <div class="col-sm-6">

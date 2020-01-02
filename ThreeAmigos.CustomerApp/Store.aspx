@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Store.aspx.cs" Inherits="ThreeAmigos.CustomerApp.Store" %>
 
+<%-- Add "View Reviews" link on each Product in table. And create ProductReviews.aspx page --%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script>
         <%--Loose Search--%>
@@ -52,11 +54,11 @@
                         <asp:TemplateField HeaderText="Name">
                             <ItemTemplate>
                                 <asp:HyperLink ID="NameLink" runat="server" DataNavigateUrlFields="Name" Text='<%# Eval("Name") %>'
-                                    NavigateUrl='<%# string.Format("~/ProductDetail.aspx?Id={0}", HttpUtility.UrlEncode(Eval("ProductId").ToString())) %>'></asp:HyperLink>
+                                    NavigateUrl='<%# string.Format("~/ProductDetail.aspx?Id={0}", HttpUtility.UrlEncode(Eval("Id").ToString())) %>'></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" ItemStyle-CssClass="categoryColumn" />
-                        <asp:BoundField DataField="Brand" HeaderText="Brand" SortExpression="Brand" ItemStyle-CssClass="brandColumn" />
+                        <asp:BoundField DataField="CategoryName" HeaderText="Category" SortExpression="Category" ItemStyle-CssClass="categoryColumn" />
+                        <asp:BoundField DataField="BrandName" HeaderText="Brand" SortExpression="Brand" ItemStyle-CssClass="brandColumn" />
                         <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" ItemStyle-CssClass="descriptionColumn" />
                         <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" ItemStyle-CssClass="priceColumn" />
                         <asp:BoundField DataField="StockLevel" HeaderText="In Stock" SortExpression="StockLevel" ItemStyle-CssClass="stockLevelColumn" />

@@ -192,7 +192,23 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
             if (productDto != null)
             {
-                return Ok(productDto.ProductId);
+                return Ok(productDto.Id);
+            }
+            else
+            {
+                return Ok(null);
+            }
+        }
+
+        // GET: api/Customers/GetProductName/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<string>> ProductName(int id)
+        {
+            ProductDto productDto = await _productRepository.GetProduct(id);
+
+            if (productDto != null)
+            {
+                return Ok(productDto.Name);
             }
             else
             {
@@ -208,7 +224,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
             if (entity == null)
             {
-                return NotFound("A Product with ProductId = " + product.ProductId + " was unable to be created.");
+                return NotFound("A Product with ProductId = " + product.Id + " was unable to be created.");
             }
 
             if (product.Name != entity.Name)
@@ -230,7 +246,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
                 return NotFound("Product with Id = " + id.ToString() + " not found to update.");
             }
 
-            if (id != entity.ProductId)
+            if (id != entity.Id)
             {
                 return BadRequest();
             }

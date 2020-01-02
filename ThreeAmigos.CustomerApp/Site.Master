@@ -5,9 +5,6 @@
 <%--TODO: As additional constraints, the system must:
     Use the provided OAuth2 server for authentication – this will be distributed via Blackboard once the development phase has begun. --%>
 
-<%-- Publish to Azure App Service --%>
-<%--https://docs.microsoft.com/en-us/visualstudio/deployment/quickstart-deploy-to-azure?view=vs-2019--%>
-
 <html lang="en">
 <head runat="server">
     <!--Required meta tags-->
@@ -87,6 +84,9 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="RequestDelete">Request Delete</a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="CustomerReviews">My Reviews</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Store">Store</a>

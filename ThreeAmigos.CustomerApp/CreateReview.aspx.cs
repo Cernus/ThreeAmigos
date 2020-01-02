@@ -42,10 +42,12 @@ namespace ThreeAmigos.CustomerApp
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+
             ReviewDto reviewDto = new ReviewDto
             {
                 Rating = Int32.Parse(ratingSpinner.Value),
-                Body = bodyTextBox.Text,
+                Description = bodyTextBox.Text,
                 ProductId = productId,
                 CustomerId = CurrentUser.GetCustomerId()
             };

@@ -15,6 +15,8 @@ namespace ThreeAmigos.CustomerApp.Services
         // Create a new customer in InvoiceApi's database
         public static void CreateOrder(OrderDto orderDto)
         {
+            // TODO: Decrement Stock in Store service
+
             string json = JsonConvert.SerializeObject(orderDto);
             HttpResponseMessage response = orderFac.CreateOrder(json);
             if (response.IsSuccessStatusCode)

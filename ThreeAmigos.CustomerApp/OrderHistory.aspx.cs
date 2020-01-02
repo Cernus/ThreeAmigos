@@ -11,6 +11,7 @@ using ThreeAmigos.OrderFacade;
 
 namespace ThreeAmigos.CustomerApp
 {
+    // TODO: Disable Write review link if a review for that product and customer already exist (call Review Service)
     public partial class OrderHistory : System.Web.UI.Page
     {
         private List<Invoice> data;

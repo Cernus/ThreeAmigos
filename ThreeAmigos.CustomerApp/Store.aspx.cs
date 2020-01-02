@@ -33,6 +33,7 @@ namespace ThreeAmigos.CustomerApp
             }
         }
 
+        // TODO: Add column to "see all reviews" for product
         // Generate rows on GridView from Json object
         private void PopulatePage()
         {
@@ -44,7 +45,7 @@ namespace ThreeAmigos.CustomerApp
         // Adds elements to the Drop Down List
         private void PopulateDDL()
         {
-            string[] columns = { "Name", "Category", "Brand", "Description" };
+            string[] columns = { "Name", "CategoryName", "BrandName", "Description" };
 
             foreach(string column in columns)
             {

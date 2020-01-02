@@ -1,17 +1,82 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ThreeAmigos.ReviewFacade.Models;
 
 namespace ThreeAmigos.ReviewFacade
 {
     public class ReviewFac : IReviewFac
     {
+        // TODO: Have HttpResponse in all methods?
+        // Create a Review in the Review Service
         public HttpResponseMessage CreateReview(string json)
         {
-            throw new NotImplementedException();
+            var client = Client();
+
+            var uri = "api/review/create";
+
+            ReviewDto reviewDto = JsonConvert.DeserializeObject<ReviewDto>(json);
+            HttpResponseMessage response = client.PostAsJsonAsync<ReviewDto>(uri, reviewDto).Result;
+
+            if(!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+            return response;
+        }
+
+        public string GetCustomerReviews(int customerId)
+        {
+            var reviewList = new List<ReviewDto>();
+
+            var client = Client();
+
+            var uri = "api/ReviewByCustomer?customerId=";
+
+            // Get all reviews by customer Id from Review Service
+            HttpResponseMessage response = client.GetAsync(uri + customerId).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            reviewList = response.Content.ReadAsAsync<List<ReviewDto>>().Result;
+            client.Dispose();
+            return JsonConvert.SerializeObject(reviewList);
+        }
+
+        public string GetProductReviews(int productId)
+        {
+            var reviewList = new List<ReviewDto>();
+
+            var client = Client();
+
+            var uri = "api/ReviewByProduct?productId=";
+
+            // Get all reviews by customer Id from Review Service
+            HttpResponseMessage response = client.GetAsync(uri + productId).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            reviewList = response.Content.ReadAsAsync<List<ReviewDto>>().Result;
+            client.Dispose();
+            return JsonConvert.SerializeObject(reviewList);
+        }
+
+        // Create a client that is used to communicate with Review Service
+        private static HttpClient Client()
+        {
+            //Authenticator = new HttpBasicAuthenticator("user", "password")
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new System.Uri("https://thamcoreviewservice20191204034645.azurewebsites.net/");
+            client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            return client;
         }
     }
 }

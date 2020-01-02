@@ -131,6 +131,7 @@
     <Content Include="CreateCustomer.aspx" />
     <Content Include="CreateReview.aspx" />
     <Content Include="CustomerDetail.aspx" />
+    <Content Include="CustomerReviews.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -234,6 +235,13 @@
     </Compile>
     <Compile Include="CreateReview.aspx.designer.cs">
       <DependentUpon>CreateReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerReviews.aspx.cs">
+      <DependentUpon>CustomerReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerReviews.aspx.designer.cs">
+      <DependentUpon>CustomerReviews.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs" />
     <Compile Include="CustomerDetail.aspx.cs">

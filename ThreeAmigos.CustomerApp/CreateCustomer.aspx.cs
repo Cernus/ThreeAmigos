@@ -9,7 +9,6 @@ using ThreeAmigos.CustomerApp.Services;
 namespace ThreeAmigos.CustomerApp
 {
     // TODO: Add validation for creating/updating customer (especially tel number)
-    // TODO: Add Back button
     public partial class CreateCustomer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -17,6 +16,14 @@ namespace ThreeAmigos.CustomerApp
             if (!Page.IsPostBack)
             {
                 Security.RedirectIfNotGuest();
+                try
+                {
+                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
+                }
+                catch
+                {
+                    Response.Redirect("~/Default");
+                }
             }
         }
 
@@ -25,6 +32,19 @@ namespace ThreeAmigos.CustomerApp
         {
             CustomerUpdateDto customerUpdateDto = customerInputs.GetUpdatedCustomer();
             CurrentUser.CreateUser(customerUpdateDto);
+        }
+
+        protected void backButton_Click(object sender, EventArgs e)
+        {
+            object refUrl = ViewState["RefUrl"];
+            if (refUrl != null)
+            {
+                Response.Redirect((string)refUrl);
+            }
+            else
+            {
+                Response.Redirect("~/Default");
+            }
         }
     }
 }

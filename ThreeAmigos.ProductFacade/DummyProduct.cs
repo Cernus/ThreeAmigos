@@ -11,6 +11,16 @@ namespace ThreeAmigos.ProductFacade
 {
     public class DummyProduct : IProductFac
     {
+        public string GetProducts()
+        {
+            var ListProduct = new List<ProductDto>();
+            ListProduct.Add(Dummy(1));
+            ListProduct.Add(Dummy(2));
+            ListProduct.Add(Dummy(3));
+            ListProduct.Add(Dummy(4));
+
+            return JsonConvert.SerializeObject(ListProduct);
+        }
         public string GetProduct(int id)
         {
             ProductDto product = null;
@@ -20,7 +30,7 @@ namespace ThreeAmigos.ProductFacade
 
             //Get Product by id from CustomerApi
             HttpResponseMessage response = client.GetAsync(uri + id).Result;
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 product = response.Content.ReadAsAsync<ProductDto>().Result;
                 client.Dispose();
@@ -34,18 +44,8 @@ namespace ThreeAmigos.ProductFacade
             }
 
         }
-        public string GetProducts()
-        {
-            var ListProduct = new List<ProductDto>();
-            ListProduct.Add(Dummy(1));
-            ListProduct.Add(Dummy(2));
-            ListProduct.Add(Dummy(3));
-            ListProduct.Add(Dummy(4));
 
-            return JsonConvert.SerializeObject(ListProduct);
-        }
-
-        public bool InStock(int id)
+        public bool InStock(int id, int quantity)
         {
             return true;
         }
@@ -55,16 +55,16 @@ namespace ThreeAmigos.ProductFacade
             switch (id)
             {
                 case 1:
-                    return (new ProductDto() { ProductId = 1, Name = "Product 1", Category = "Electronic", Brand = "Undercutters", Description = "Example of a long description. Example of a long description. Example of a long description. Example of a long description. Example of a long description.", Price = 1.99, StockLevel = 12 });
+                    return (new ProductDto() { Id = 1, Name = "Product 1", CategoryName = "Electronic", BrandName = "Undercutters", Description = "Example of a long description. Example of a long description. Example of a long description. Example of a long description. Example of a long description.", Price = 1.99, StockLevel = 12 });
 
                 case 2:
-                    return (new ProductDto() { ProductId = 2, Name = "Product 2", Category = "Security", Brand = "Undercutters", Description = "Description", Price = 2.99, StockLevel = 1 });
+                    return (new ProductDto() { Id = 2, Name = "Product 2", CategoryName = "Security", BrandName = "Undercutters", Description = "Description", Price = 2.99, StockLevel = 1 });
 
                 case 3:
-                    return (new ProductDto() { ProductId = 3, Name = "Product 3", Category = "Electronic", Brand = "Dodgy Dealers", Description = "Description", Price = 4.99, StockLevel = 0 });
+                    return (new ProductDto() { Id = 3, Name = "Product 3", CategoryName = "Electronic", BrandName = "Dodgy Dealers", Description = "Description", Price = 4.99, StockLevel = 0 });
 
                 case 4:
-                    return (new ProductDto() { ProductId = 4, Name = "Product 4", Category = "Furniture", Brand = "Dodgy Dealers", Description = "Description", Price = 5.50, StockLevel = 456 });
+                    return (new ProductDto() { Id = 4, Name = "Product 4", CategoryName = "Furniture", BrandName = "Dodgy Dealers", Description = "Description", Price = 5.50, StockLevel = 456 });
 
                 default:
                     throw new Exception();
@@ -72,9 +72,28 @@ namespace ThreeAmigos.ProductFacade
             }
         }
 
+        // TODO: Make sure that Dispose is used everywhere
         public string GetProductName(int id)
         {
-            return "Product1";
+            string productName;
+
+            var client = CustomerApiClient();
+
+            var uri = "api/customers/ProductName/";
+
+            HttpResponseMessage response = client.GetAsync(uri + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                productName = response.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                //TODO: Get Product Name id from StoreApi
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            client.Dispose();
+            return productName;
         }
 
         // Update the database in CustomerApi with latest Product information
@@ -88,7 +107,7 @@ namespace ThreeAmigos.ProductFacade
 
             for (int i = 0; i < productDtos.Count; i++)
             {
-                productIds.Add(productDtos[i].ProductId);
+                productIds.Add(productDtos[i].Id);
             }
 
             // Get all products within database that match id's of products in productDtos
@@ -105,7 +124,7 @@ namespace ThreeAmigos.ProductFacade
                 if (response.IsSuccessStatusCode)
                 {
                     int? validId = response.Content.ReadAsAsync<int>().Result;
-                    if(validId == id)
+                    if (validId == id)
                     {
                         existingProductIds.Add(id);
                     }
@@ -149,8 +168,8 @@ namespace ThreeAmigos.ProductFacade
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
             //TODO: Direct BaseAddress towards deployed Api
-            client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
-            //client.BaseAddress = new System.Uri("https://localhost:44301/");
+            //client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

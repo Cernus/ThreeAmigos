@@ -2,10 +2,10 @@
 {
     public class Product
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Category { get; set; }
-        public string Brand { get; set; }
+        public string CategoryName { get; set; }
+        public string BrandName { get; set; }
         public string Description { get; set; }
         // TODO: Format so price leads with a "£"
         public double? Price { get; set; }

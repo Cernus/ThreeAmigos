@@ -11,7 +11,7 @@ namespace ThreeAmigos.ProductFacade
     {
         string GetProducts();
         string GetProduct(int id);
-        bool InStock(int id);
+        bool InStock(int id, int quantity);
         string GetProductName(int id);
         HttpResponseMessage StoreProductData(string json);
     }

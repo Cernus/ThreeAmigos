@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ThreeAmigos.CustomerApp
-{
-
-
-    public partial class ProductDetail
-    {
-
+namespace ThreeAmigos.CustomerApp {
+    
+    
+    public partial class ProductDetail {
+        
         /// <summary>
         /// nameLabel control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label nameLabel;
-
+        
         /// <summary>
         /// quantitySpinner control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl quantitySpinner;
-
+        
         /// <summary>
         /// categoryLabel control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label categoryLabel;
-
+        
         /// <summary>
         /// brandLabel control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label brandLabel;
-
+        
         /// <summary>
         /// descriptionLabel control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label descriptionLabel;
-
+        
         /// <summary>
         /// priceLabel control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label priceLabel;
-
+        
         /// <summary>
         /// stockLevelLabel control.
         /// </summary>
@@ -76,7 +74,16 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label stockLevelLabel;
-
+        
+        /// <summary>
+        /// test control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label test;
+        
         /// <summary>
         /// OrderButton control.
         /// </summary>
@@ -85,7 +92,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button OrderButton;
-
+        
         /// <summary>
         /// BackButton control.
         /// </summary>

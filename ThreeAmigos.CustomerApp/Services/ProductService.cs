@@ -10,7 +10,8 @@ namespace ThreeAmigos.CustomerApp.Services
     public static class ProductService
     {
         // TODO: Replace DummyProduct with ProductFac
-        private static DummyProduct productFac = new DummyProduct();
+        //private static DummyProduct productFac = new DummyProduct();
+        private static ProductFac productFac = new ProductFac();
 
         // Get Product by id
         public static Product GetProduct(int id)
@@ -47,15 +48,22 @@ namespace ThreeAmigos.CustomerApp.Services
         }
 
         // Check if product is currently in stock
-        public static bool InStock(int id)
+        public static bool InStock(int id, int quantity)
         {
-            return productFac.InStock(id);
+            return productFac.InStock(id, quantity);
+        }
+
+        // Decrement Stock by quantity
+        public static void DecrementStock(int id, int quantity)
+        {
+            productFac.DecrementStock(id, quantity);
+            // TODO: Handle response message
         }
 
         public static string GetProductName(int id)
         {
-            string productName = null;
-            return productFac.GetProductName(id);
+            string productName = productFac.GetProductName(id);
+            return productName;
         }
     }
 }

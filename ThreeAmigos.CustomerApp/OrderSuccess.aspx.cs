@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace ThreeAmigos.CustomerApp
 {
+    // TODO: Update dummy data for invoices to match the real Product data
     public partial class OrderSuccess : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)

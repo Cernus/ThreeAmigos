@@ -32,7 +32,7 @@ namespace ThreeAmigos.CustomerApp.Services
             return adminCustomerId;
         }
 
-        // TODO (Reconfigure to be checkiflogged in; true or false)
+        // TODO (Reconfigure to be check if logged in; true or false)
         public static bool RedirectIfNotGuest()
         {
             if(IsGuest() || CurrentUser.GetCustomerId() == GetAdminCustomerId())

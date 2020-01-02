@@ -15,7 +15,7 @@ namespace ThreeAmigos.CustomerApp
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
-            {
+           {
                 try
                 {
                     ViewState["RefUrl"] = Request.UrlReferrer.ToString();
@@ -36,6 +36,7 @@ namespace ThreeAmigos.CustomerApp
                     try
                     {
                         PopulatePage();
+                        ShowReviews();
                     }
                     catch (Exception ex)
                     {
@@ -58,20 +59,24 @@ namespace ThreeAmigos.CustomerApp
             // Check that user has a delivery address and telephone number
             if (CurrentUser.HasAddressAndTel())
             {
-                // Check if StockLevel > 0
-                if (ProductService.InStock(productId))
-                {
-                    // Get quantity
-                    int quantity;
-                    try
-                    {
-                        quantity = Int32.Parse(quantitySpinner.Value);
-                    }
-                    catch
-                    {
-                        quantity = 1;
-                    }
+                productId = Int32.Parse(Request.QueryString["Id"]);
 
+                // Get quantity
+                int quantity;
+                try
+                {
+                    quantity = Int32.Parse(quantitySpinner.Value);
+                }
+                catch
+                {
+                    quantity = 1;
+                }
+
+                // Check if StockLevel >= quantity
+                if (ProductService.InStock(productId, quantity))
+                {
+                    ProductService.DecrementStock(productId, quantity);
+                    
                     // Create Model
                     orderDto = new OrderDto
                     {
@@ -80,20 +85,26 @@ namespace ThreeAmigos.CustomerApp
                         TimeOrdered = DateTime.Now.Date
                     };
 
-                }
+                    if (orderDto != null)
+                    {
+                        // Send Order to InvoiceApi
+                        OrderService.CreateOrder(orderDto);
 
-                if (orderDto != null)
-                {
-                    // Send Order to InvoiceApi
-                    OrderService.CreateOrder(orderDto);
+                        // Redirect to OrderSuccess
 
-                    // Redirect to OrderSuccess
-
+                    }
+                    else
+                    {
+                        // TODO: Display to user that item is currently out of stock
+                        Response.Redirect("~/Default");
+                    }
                 }
                 else
                 {
-                    Response.Redirect("~/Default");
+                    // TODO: Finish coding what happens when order is successful/unsuccessful
                 }
+
+
             }
             else
             {
@@ -127,10 +138,10 @@ namespace ThreeAmigos.CustomerApp
                 }
 
                 // Display Category
-                categoryLabel.Text = product.Category;
+                categoryLabel.Text = product.CategoryName;
 
                 // Display Brand
-                brandLabel.Text = product.Brand;
+                brandLabel.Text = product.BrandName;
 
                 // Display Description
                 descriptionLabel.Text = product.Description;
@@ -145,6 +156,12 @@ namespace ThreeAmigos.CustomerApp
             {
                 throw new NullReferenceException("Product not found");
             }
+        }
+
+        private void ShowReviews()
+        {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+            test.Text = ReviewService.GetProductReviews(productId);
         }
 
 

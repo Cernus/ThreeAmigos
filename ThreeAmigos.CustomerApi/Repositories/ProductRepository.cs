@@ -17,17 +17,17 @@ namespace ThreeAmigos.CustomerApi.Repositories
         public async Task<ProductDto> GetProduct(int id)
         {
             ProductDto product = await _context.Products
-                .Where(p => p.ProductId == id)
+                .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
             if (product != null)
             {
                 return new ProductDto
                 {
-                    ProductId = product.ProductId,
+                    Id = product.Id,
                     Name = product.Name,
-                    Category = product.Category,
-                    Brand = product.Brand,
+                    CategoryName = product.CategoryName,
+                    BrandName = product.BrandName,
                     Description = product.Description,
                     Price = product.Price,
                     StockLevel = product.StockLevel
@@ -42,7 +42,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         public async Task<ProductDto> CreateProduct(ProductDto product)
         {
             // Check that a product with this id does not already exist
-            ProductDto checkProduct = _context.Products.FirstOrDefault(p => p.ProductId == product.ProductId);
+            ProductDto checkProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
             if(checkProduct != null)
             {
                 return null;
@@ -51,10 +51,10 @@ namespace ThreeAmigos.CustomerApi.Repositories
             try
             {
                 ProductDto entity = new ProductDto();
-                entity.ProductId = product.ProductId;
+                entity.Id = product.Id;
                 entity.Name = product.Name;
-                entity.Category = product.Category;
-                entity.Brand = product.Brand;
+                entity.CategoryName = product.CategoryName;
+                entity.BrandName = product.BrandName;
                 entity.Description = product.Description;
                 entity.Price = product.Price;
                 entity.StockLevel = product.StockLevel;
@@ -74,7 +74,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             try
             {
-                ProductDto entity = _context.Products.FirstOrDefault(p => p.ProductId == product.ProductId);
+                ProductDto entity = _context.Products.FirstOrDefault(p => p.Id == product.Id);
 
                 // Only update fields that are not null
                 if(product.Name != null)
@@ -82,14 +82,14 @@ namespace ThreeAmigos.CustomerApi.Repositories
                     entity.Name = product.Name;
                 }
 
-                if (product.Category != null)
+                if (product.CategoryName != null)
                 {
-                    entity.Category = product.Category;
+                    entity.CategoryName = product.CategoryName;
                 }
 
-                if (product.Brand != null)
+                if (product.BrandName != null)
                 {
-                    entity.Brand = product.Brand;
+                    entity.BrandName = product.BrandName;
                 }
 
                 if (product.Description != null)
