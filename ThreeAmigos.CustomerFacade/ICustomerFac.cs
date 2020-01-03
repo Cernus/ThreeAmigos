@@ -10,5 +10,6 @@ namespace ThreeAmigos.CustomerFacade
         HttpResponseMessage CreateCustomer(string json);
         HttpResponseMessage RequestDelete(int id);
         bool HasAddressAndTel(int id);
+        bool Authenticate(string username, string password);
     }
 }

@@ -20,5 +20,10 @@ namespace CustomerApp
             CustomerDetailLink.HRef = "CustomerDetail?Id=" + CurrentUser.GetCustomerId();
             UpdateCustomerLink.HRef = "UpdateCustomer?id=" + CurrentUser.GetCustomerId();
         }
+
+        protected void SignOutLink_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

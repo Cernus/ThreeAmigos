@@ -9,6 +9,7 @@ using ThreeAmigos.ReviewFacade;
 
 namespace ThreeAmigos.CustomerApp.Services
 {
+    // TODO: Put in error handling (e.g. != null for all methods in all Service classes)
     public static class ReviewService
     {
         //private static DummyReview reviewFac = new DummyReview();
@@ -41,6 +42,13 @@ namespace ThreeAmigos.CustomerApp.Services
             string json = reviewFac.GetProductReviews(productId);
 
             return json;
+        }
+
+        public static List<int> GetWrittenReviewsIds(int customerId)
+        {
+            List<int> writtenReviewsProductIds = reviewFac.GetWrittenReviewsIds(customerId);
+
+            return writtenReviewsProductIds;
         }
     }
 }

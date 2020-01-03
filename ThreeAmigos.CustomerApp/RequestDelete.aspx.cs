@@ -21,6 +21,8 @@ namespace ThreeAmigos.CustomerApp
         //TODO
         protected void delete_Click(object sender, EventArgs e)
         {
+            // TODO: Update active flag from Customer API if James does not have enough time to implement this
+
             CurrentUser.RequestDelete();
         }
 

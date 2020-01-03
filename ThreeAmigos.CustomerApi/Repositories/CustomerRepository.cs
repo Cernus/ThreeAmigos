@@ -18,10 +18,23 @@ namespace ThreeAmigos.CustomerApi.Repositories
         }
 
         // TODO
-        public async Task<List<Customer>> GetCustomers()
+        public async Task<List<CustomerStaffDto>> GetCustomers()
         {
-            var customers = await _context.Customers.ToListAsync();
-            return customers;
+            List<Customer> customers = await _context.Customers.ToListAsync();
+
+            var customersDto = customers.Select(c => new CustomerStaffDto
+            {
+                CustomerId = c.CustomerId,
+                FullName = c.FirstName + " " + c.SecondName,
+                Address = c.Address,
+                EmailAddress = c.EmailAddress,
+                Tel = c.Tel,
+                Sell_To = c.Sell_To,
+                RegistrationTime = c.Registered,
+                LastVisit = c.LastOnline
+            }).ToList();
+
+            return customersDto;
         }
 
         public async Task<CustomerDetailDto> GetCustomer(int id)
@@ -42,6 +55,32 @@ namespace ThreeAmigos.CustomerApi.Repositories
                     EmailAddress = customer.EmailAddress,
                     Tel = customer.Tel,
                     Sell_To = customer.Sell_To
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<CustomerStaffDto> GetCustomerForStaffApi(int id)
+        {
+            Customer customer = await _context.Customers
+                .Where(c => c.CustomerId == id)
+                .FirstOrDefaultAsync();
+
+            if (customer != null)
+            {
+                return new CustomerStaffDto
+                {
+                    CustomerId = customer.CustomerId,
+                    FullName = customer.FirstName + " " + customer.SecondName,
+                    Address = customer.Address,
+                    EmailAddress = customer.EmailAddress,
+                    Tel = customer.Tel,
+                    Sell_To = customer.Sell_To,
+                    RegistrationTime = customer.Registered,
+                    LastVisit = customer.LastOnline
                 };
             }
             else
@@ -130,13 +169,28 @@ namespace ThreeAmigos.CustomerApi.Repositories
             return entity;
         }
                 
-        public async Task<Customer> UpdateSellTo(int id, bool sell)
+        public async Task<CustomerStaffDto> UpdateSellTo(int id, bool sell)
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
-            _ = entity.Sell_To == sell;
+
+            entity.Sell_To = sell;
+
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return entity;
+            CustomerStaffDto customerDto = new CustomerStaffDto
+            {
+                CustomerId = entity.CustomerId,
+                FullName = entity.FirstName + " " + entity.SecondName,
+                Address = entity.Address,
+                EmailAddress = entity.EmailAddress,
+                Tel = entity.Tel,
+                Sell_To = sell,
+                RegistrationTime = entity.Registered,
+                LastVisit = entity.LastOnline
+            };
+
+            return customerDto;
         }
 
         // TODO: Currently not implemented/used
@@ -157,6 +211,19 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 return false;
             }
 
+        }
+
+        public async Task<bool> Authenticate(string username, string password)
+        {
+            try
+            {
+                Customer entity = await _context.Customers.FirstAsync(c => c.Username == username && c.Password == password);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

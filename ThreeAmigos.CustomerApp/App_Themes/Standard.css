@@ -8,3 +8,10 @@
     height: 30px;
     width: 30px;
 }
+
+.signOut {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.5);
+    display: block;
+    padding: 8px;
+}

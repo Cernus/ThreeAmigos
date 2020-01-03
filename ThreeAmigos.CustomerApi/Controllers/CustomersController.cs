@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using ThreeAmigos.CustomerApi.Repositories;
 
 namespace ThreeAmigos.CustomerApi.Controllers
 {
+    // TODO: Should Products be in their own controller?
     //[Route("api/customers")]
     [Route("api/customers/{action}")]
     [ApiController]
@@ -25,10 +27,10 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
         // GET: api/Customers/Details
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> Details()
+        public async Task<ActionResult<IEnumerable<CustomerStaffDto>>> Details()
         {
             //return await _context.Customers.ToListAsync();
-            List<Customer> customers = await _customerRepository.GetCustomers();
+            List<CustomerStaffDto> customers = await _customerRepository.GetCustomers();
             return customers;
         }
 
@@ -37,6 +39,20 @@ namespace ThreeAmigos.CustomerApi.Controllers
         public async Task<ActionResult<CustomerDetailDto>> Detail(int id)
         {
             CustomerDetailDto customerDto = await _customerRepository.GetCustomer(id);
+
+            if (customerDto == null)
+            {
+                return NotFound();
+            }
+
+            return customerDto;
+        }
+
+        // GET: api/Customers/Get/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerStaffDto>> Get(int id)
+        {
+            CustomerStaffDto customerDto = await _customerRepository.GetCustomerForStaffApi(id);
 
             if (customerDto == null)
             {
@@ -123,8 +139,8 @@ namespace ThreeAmigos.CustomerApi.Controllers
             return Ok(entity);
         }
 
-        // PUT api/Customers/HardDelete/5
-        [HttpPut("{id}")]
+        // DELETE api/Customers/HardDelete/5
+        [HttpDelete("{id}")]
         public async Task<IActionResult> HardDelete(int id)
         {
             Customer entity = await _customerRepository.HardDelete(id);
@@ -142,11 +158,22 @@ namespace ThreeAmigos.CustomerApi.Controllers
             return Ok(entity);
         }
 
-        // GET api/Customers/UpdateSellTo/5
+        // PUT api/Customers/UpdateSellTo/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSellTo(int id, bool sell_To)
+        public async Task<IActionResult> UpdateSellTo(int id, [FromBody]string json)
         {
-            Customer entity = await _customerRepository.UpdateSellTo(id, sell_To);
+            // TODO: Put this code in repository
+            bool flag = false;
+            try
+            {
+                flag = json.Contains("true");
+            }
+            catch
+            {
+                return BadRequest("Could not convert json to bool");
+            }
+
+            CustomerStaffDto entity = await _customerRepository.UpdateSellTo(id, flag);
 
             if (entity == null)
             {
@@ -155,7 +182,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
             if (id != entity.CustomerId)
             {
-                return BadRequest();
+                return BadRequest("Id of cusstomer does not match database");
             }
 
             return Ok(entity);
@@ -168,6 +195,15 @@ namespace ThreeAmigos.CustomerApi.Controllers
             bool valid = await _customerRepository.HasAddressAndTel(id);
 
             return valid;
+        }
+
+        // POST api/customers/authenticate
+        [HttpPost]
+        public async Task<bool> Authenticate([FromBody]List<string> authDetails)
+        {
+            bool userFound = await _customerRepository.Authenticate(authDetails[0], authDetails[1]);
+
+            return userFound;
         }
 
         // GET: api/Customers/ProductDetail/5

@@ -11,7 +11,7 @@
                         <asp:Label runat="server"><strong>Username: </strong></asp:Label>
                     </div>
                     <div class="col-md-8">
-                        <asp:Label ID="usernameLabel" CssClass="form-control" runat="server"></asp:Label>
+                        <asp:TextBox ID="usernameLabel" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <asp:Label runat="server"><strong>Password: </strong></asp:Label>
                     </div>
                     <div class="col-md-8">
-                        <asp:Label ID="passwordLabel" CssClass="form-control" runat="server"></asp:Label>
+                        <asp:TextBox ID="passwordLabel" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
             </div>

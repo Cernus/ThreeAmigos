@@ -126,12 +126,40 @@ namespace ThreeAmigos.CustomerFacade
             }
         }
 
+        public bool Authenticate(string username, string password)
+        {
+            var client = Client();
+
+            List<String> authDetails = new List<string>();
+            authDetails.Add(username);
+            authDetails.Add(password);
+            bool userFound = false;
+
+            var uri = "api/customers/authenticate/";
+
+            HttpResponseMessage response = client.PostAsJsonAsync(uri, authDetails).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                userFound = response.Content.ReadAsAsync<bool>().Result;
+            }
+            else
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            client.Dispose();
+            return userFound;
+        }
+
         // Create a client that is used to communicate with CustomerApi
         private static HttpClient Client()
         {
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            // TODO: Redirect back to deployed Api
+            //client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

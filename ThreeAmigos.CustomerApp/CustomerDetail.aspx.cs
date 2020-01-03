@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -17,6 +18,21 @@ namespace ThreeAmigos.CustomerApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Show if user is admin
+            // Show if user is current user
+            // note don't need to consider if user is active or inactive
+
+            //string currentUserId = Membership.GetUser().ProviderUserKey.ToString();
+
+            //if(!Context.User.Identity.IsAuthenticated)
+            //{
+            //    Response.Redirect("~/Default");
+            //}
+
+            // TODO: This gets Id of current user
+            var test = Context.User.Identity.Name;
+
+
             if (!Page.IsPostBack)
             {
                 // Redirect to Home if non-admin user is not logged in or trying to view another customer

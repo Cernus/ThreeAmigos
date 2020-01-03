@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using ThreeAmigos.CustomerApi.Models;
 using ThreeAmigos.CustomerApi.Repositories;
 
@@ -29,7 +30,10 @@ namespace ThreeAmigos.CustomerApi
             services.AddDbContext<CustomerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CustomerContext")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            
 
             //services.AddHttpClient<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

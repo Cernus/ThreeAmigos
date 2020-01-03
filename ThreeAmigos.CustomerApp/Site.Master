@@ -73,6 +73,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="SignIn">Sign In</a>
                     </li>
+                    <%-- TODO: Not yet implemented --%>
+                    <li class="nav-item">
+                        <asp:LinkButton ID="SignOutLink" CssClass="signOut" runat="server" OnClick="SignOutLink_Click">Sign Out</asp:LinkButton>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="CreateCustomer">Register</a>
                     </li>
@@ -94,6 +98,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="OrderHistory">Order History</a>
                     </li>
+                    <%--TODO: Remove this--%>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>

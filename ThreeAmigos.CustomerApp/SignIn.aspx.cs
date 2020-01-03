@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
@@ -12,13 +14,18 @@ namespace ThreeAmigos.CustomerApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         //TODO
         protected void submitButton_Click(object sender, EventArgs e)
         {
-            // Not yet implemented
+            string username = usernameLabel.Text;
+            string password = passwordLabel.Text;
+
+            Security.Authenticate(username, password);
+
+            // TODO: Update LastSignedIn for this user
         }
     }
 }

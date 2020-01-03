@@ -19,7 +19,7 @@ namespace ThreeAmigos.CustomerApp {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label usernameLabel;
+        protected global::System.Web.UI.WebControls.TextBox usernameLabel;
         
         /// <summary>
         /// passwordLabel control.
@@ -28,7 +28,7 @@ namespace ThreeAmigos.CustomerApp {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label passwordLabel;
+        protected global::System.Web.UI.WebControls.TextBox passwordLabel;
         
         /// <summary>
         /// submitButton control.

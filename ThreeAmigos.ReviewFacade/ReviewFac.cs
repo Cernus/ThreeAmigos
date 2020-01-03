@@ -22,7 +22,8 @@ namespace ThreeAmigos.ReviewFacade
             ReviewDto reviewDto = JsonConvert.DeserializeObject<ReviewDto>(json);
             HttpResponseMessage response = client.PostAsJsonAsync<ReviewDto>(uri, reviewDto).Result;
 
-            if(!response.IsSuccessStatusCode)
+            // TODO: Handle situations when Service gives no response; do not throw an error. (Display error message on front end?)
+            if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
             }
@@ -61,12 +62,32 @@ namespace ThreeAmigos.ReviewFacade
             HttpResponseMessage response = client.GetAsync(uri + productId).Result;
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Received a bad response from the web service.");
+                return null;
             }
 
             reviewList = response.Content.ReadAsAsync<List<ReviewDto>>().Result;
             client.Dispose();
             return JsonConvert.SerializeObject(reviewList);
+        }
+
+        public List<int> GetWrittenReviewsIds(int customerId)
+        {
+            List<int> writtenReviewsProductIds = new List<int>();
+
+            var client = Client();
+
+            var uri = "api/ProductIds?customerId=";
+
+            // Get product Id's of all reviews written by this user
+            HttpResponseMessage response = client.GetAsync(uri + customerId).Result;
+            if(!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            writtenReviewsProductIds = response.Content.ReadAsAsync<List<int>>().Result;
+            client.Dispose();
+            return writtenReviewsProductIds;
         }
 
         // Create a client that is used to communicate with Review Service

@@ -12,7 +12,22 @@ namespace ThreeAmigos.ReviewFacade
     {
         public HttpResponseMessage CreateReview(string json)
         {
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            throw new NotImplementedException();
+        }
+
+        public string GetCustomerReviews(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetProductReviews(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> GetWrittenReviewsIds(int customerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
