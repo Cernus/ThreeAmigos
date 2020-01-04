@@ -10,7 +10,7 @@ namespace ThreeAmigos.CustomerApp.Services
 {
     public static class OrderService
     {
-        private static DummyOrder orderFac = new DummyOrder();
+        private static OrderFac orderFac = new OrderFac();
 
         // Create a new customer in InvoiceApi's database
         public static void CreateOrder(OrderDto orderDto)

@@ -138,7 +138,6 @@
     <Content Include="Images\minus.png" />
     <Content Include="Images\plus.png" />
     <Content Include="OrderHistory.aspx" />
-    <Content Include="OrderSuccess.aspx" />
     <Content Include="ProductDetail.aspx" />
     <Content Include="RequestDelete.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -274,13 +273,6 @@
     <Compile Include="OrderHistory.aspx.designer.cs">
       <DependentUpon>OrderHistory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OrderSuccess.aspx.cs">
-      <DependentUpon>OrderSuccess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OrderSuccess.aspx.designer.cs">
-      <DependentUpon>OrderSuccess.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ProductDetail.aspx.cs">
       <DependentUpon>ProductDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -302,7 +294,7 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReviewService.cs" />
     <Compile Include="Services\Security.cs" />
-    <Compile Include="Services\CurrentUser.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -353,10 +345,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Code\" />
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

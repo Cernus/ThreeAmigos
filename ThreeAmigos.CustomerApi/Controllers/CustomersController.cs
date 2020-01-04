@@ -29,8 +29,15 @@ namespace ThreeAmigos.CustomerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerStaffDto>>> Details()
         {
-            //return await _context.Customers.ToListAsync();
             List<CustomerStaffDto> customers = await _customerRepository.GetCustomers();
+            return customers;
+        }
+
+        // GET: api/Customers/GetRequestedDelete
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CustomerStaffDto>>> GetRequestedDelete()
+        {
+            List<CustomerStaffDto> customers = await _customerRepository.GetRequestedDelete();
             return customers;
         }
 
@@ -199,11 +206,11 @@ namespace ThreeAmigos.CustomerApi.Controllers
 
         // POST api/customers/authenticate
         [HttpPost]
-        public async Task<bool> Authenticate([FromBody]List<string> authDetails)
+        public async Task<int> Authenticate([FromBody]List<string> authDetails)
         {
-            bool userFound = await _customerRepository.Authenticate(authDetails[0], authDetails[1]);
+            int userId = await _customerRepository.Authenticate(authDetails[0], authDetails[1]);
 
-            return userFound;
+            return userId;
         }
 
         // GET: api/Customers/ProductDetail/5

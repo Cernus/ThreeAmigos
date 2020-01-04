@@ -65,22 +65,23 @@
             </button>
 
             <!-- TODO: use Security to hide links. E.g. logged in user cannot see Register -->
+            <!-- TODO: Add Admin Page (Customer list). Also have DDL's on pages such as Order History where admin can select which user to look at -->
+            <!-- Menu -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="Default">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li id="SignInLi" class="nav-item" runat="server">
                         <a class="nav-link" href="SignIn">Sign In</a>
                     </li>
-                    <%-- TODO: Not yet implemented --%>
-                    <li class="nav-item">
+                    <li id="SignOutLi" class="nav-item" runat="server">
                         <asp:LinkButton ID="SignOutLink" CssClass="signOut" runat="server" OnClick="SignOutLink_Click">Sign Out</asp:LinkButton>
                     </li>
-                    <li class="nav-item">
+                    <li id="CreateCustomerLi" class="nav-item" runat="server">
                         <a class="nav-link" href="CreateCustomer">Register</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li id="CustomerRUDLi" class="nav-item dropdown" runat="server">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Customer</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a id="CustomerDetailLink" class="dropdown-item" runat="server">Customer Detail</a>
@@ -89,20 +90,21 @@
                             <a class="dropdown-item" href="RequestDelete">Request Delete</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="CustomerReviews">My Reviews</a>
+                    <li id="CustomerReviewsLi" class="nav-item" runat="server">
+                        <a id="CustomerReviewsLink" class="nav-link" runat="server">My Reviews</a>
                     </li>
-                    <li class="nav-item">
+                    <li id="StoreLi" class="nav-item">
                         <a class="nav-link" href="Store">Store</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OrderHistory">Order History</a>
+                    <li id="OrderHistoryLi" class="nav-item" runat="server">
+                        <a id="StoreLink" class="nav-link" runat="server">Order History</a>
                     </li>
                     <%--TODO: Remove this--%>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
+                <!-- TODO: Delete this -->
                 <div class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

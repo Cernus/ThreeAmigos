@@ -7,11 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CustomerApp {
-    
-    
-    public partial class SiteMaster {
-        
+namespace CustomerApp
+{
+
+
+    public partial class SiteMaster
+    {
+
+        /// <summary>
+        /// SignInLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SignInLi;
+
+        /// <summary>
+        /// SignOutLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SignOutLi;
+
         /// <summary>
         /// SignOutLink control.
         /// </summary>
@@ -20,7 +40,25 @@ namespace CustomerApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton SignOutLink;
-        
+
+        /// <summary>
+        /// CreateCustomerLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CreateCustomerLi;
+
+        /// <summary>
+        /// CustomerRUDLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CustomerRUDLi;
+
         /// <summary>
         /// CustomerDetailLink control.
         /// </summary>
@@ -29,7 +67,7 @@ namespace CustomerApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor CustomerDetailLink;
-        
+
         /// <summary>
         /// UpdateCustomerLink control.
         /// </summary>
@@ -38,7 +76,43 @@ namespace CustomerApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor UpdateCustomerLink;
-        
+
+        /// <summary>
+        /// CustomerReviewsLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CustomerReviewsLi;
+
+        /// <summary>
+        /// CustomerReviewsLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor CustomerReviewsLink;
+
+        /// <summary>
+        /// OrderHistoryLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl OrderHistoryLi;
+
+        /// <summary>
+        /// StoreLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor StoreLink;
+
         /// <summary>
         /// MainContent control.
         /// </summary>

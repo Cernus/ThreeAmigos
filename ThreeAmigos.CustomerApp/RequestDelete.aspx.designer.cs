@@ -7,27 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ThreeAmigos.CustomerApp {
-    
-    
-    public partial class RequestDelete {
-        
+namespace ThreeAmigos.CustomerApp
+{
+
+
+    public partial class RequestDelete
+    {
+
         /// <summary>
-        /// deleteButton control.
+        /// DeleteButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button deleteButton;
-        
+        protected global::System.Web.UI.WebControls.Button DeleteButton;
+
         /// <summary>
-        /// backButton control.
+        /// BackButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button backButton;
+        protected global::System.Web.UI.WebControls.Button BackButton;
     }
 }

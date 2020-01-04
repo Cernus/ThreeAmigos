@@ -30,5 +30,6 @@ namespace ThreeAmigos.CustomerApi.Models
         public bool Sell_To { get; set; }
         [Required]
         public bool Active { get; set; }
+        public bool RequestedDelete { get; set; }
     }
 }

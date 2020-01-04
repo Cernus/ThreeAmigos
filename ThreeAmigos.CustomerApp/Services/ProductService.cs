@@ -24,7 +24,7 @@ namespace ThreeAmigos.CustomerApp.Services
             }
             catch
             {
-                throw new Exception();
+                throw new Exception("Could not find Product with id = " + id);
             }
 
             return JsonConvert.DeserializeObject<Product>(json);

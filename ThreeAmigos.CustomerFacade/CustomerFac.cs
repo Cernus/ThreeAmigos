@@ -126,14 +126,14 @@ namespace ThreeAmigos.CustomerFacade
             }
         }
 
-        public bool Authenticate(string username, string password)
+        public int Authenticate(string username, string password)
         {
             var client = Client();
 
             List<String> authDetails = new List<string>();
             authDetails.Add(username);
             authDetails.Add(password);
-            bool userFound = false;
+            int userId = 0;
 
             var uri = "api/customers/authenticate/";
 
@@ -141,7 +141,7 @@ namespace ThreeAmigos.CustomerFacade
 
             if (response.IsSuccessStatusCode)
             {
-                userFound = response.Content.ReadAsAsync<bool>().Result;
+                userId = response.Content.ReadAsAsync<int>().Result;
             }
             else
             {
@@ -149,7 +149,7 @@ namespace ThreeAmigos.CustomerFacade
             }
 
             client.Dispose();
-            return userFound;
+            return userId;
         }
 
         // Create a client that is used to communicate with CustomerApi

@@ -12,31 +12,59 @@ using ThreeAmigos.CustomerFacade;
 namespace ThreeAmigos.CustomerApp.Services
 {
     // TODO: Look at singleton pattern for CustomerFac
-    public static class CurrentUser
+    public static class UserService
     {
         private static CustomerFac customerFac = new CustomerFac();
 
-        // Return Customer information for current user
+        public static int GetCustomerId()
+        {
+            try
+            {
+                return Int32.Parse(HttpContext.Current.User.Identity.Name);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        // Return Customer information for customer of current page
         public static Customer GetUser()
         {
-            int id = GetCustomerId();
-            // Get customer by id from Facade
-            var json = customerFac.GetCustomer(id);
+            string json = null;
+            try
+            {
+                int customerId = GetUserId();
+                json = customerFac.GetCustomer(customerId);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+
             return JsonConvert.DeserializeObject<Customer>(json);
+        }
+
+        public static int GetUserId()
+        {
+            try
+            {
+                string queryString = HttpContext.Current.Request.QueryString["id"];
+                int customerId = Int32.Parse(queryString);
+                return customerId;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public static CustomerUpdateDto GetUserUpdate()
         {
-            int id = GetCustomerId();
-            // Get customer by id from Facade
-            var json = customerFac.GetCustomerUpdate(id);
+            string queryString = HttpContext.Current.Request.QueryString["id"];
+            int customerId = Int32.Parse(queryString);
+            var json = customerFac.GetCustomerUpdate(customerId);
             return JsonConvert.DeserializeObject<CustomerUpdateDto>(json);
-        }
-
-        // TODO
-        public static int GetCustomerId()
-        {
-            return 2;
         }
 
         // Update Customer record in database
@@ -73,8 +101,9 @@ namespace ThreeAmigos.CustomerApp.Services
         // Request delete for customer
         public static void RequestDelete()
         {
-            int id = GetCustomerId();
-            HttpResponseMessage response = customerFac.RequestDelete(id);
+            int customerId = GetCustomerId();
+
+            HttpResponseMessage response = customerFac.RequestDelete(customerId); ;
             if (response.IsSuccessStatusCode)
             {
                 HttpContext.Current.Response.Redirect("~/Default");
@@ -83,6 +112,8 @@ namespace ThreeAmigos.CustomerApp.Services
             {
                 throw new Exception("Received a bad response from the web service.");
             }
+
+            HttpContext.Current.Response.Redirect("~/Default");
         }
 
         public static bool HasAddressAndTel()

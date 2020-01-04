@@ -42,7 +42,7 @@ namespace ThreeAmigos.ProductFacade
 
             var uri = "api/product?id=";
 
-            //Get Product by id from CustomerApi
+            //Get product by id from StoreService
             HttpResponseMessage response = client.GetAsync(uri + id).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -50,19 +50,30 @@ namespace ThreeAmigos.ProductFacade
             }
             else
             {
-                var uri2 = "api/Customers/ProductDetail/";
-
-                // Get product by id from StoreService
-                HttpResponseMessage response2 = client.GetAsync(uri2 + id).Result;
-                if (response2.IsSuccessStatusCode)
-                {
-                    product = response2.Content.ReadAsAsync<ProductDto>().Result;
-                }
-                else
-                {
-                    throw new Exception("Received a bad response from the web service.");
-                }
+                throw new Exception("Received a bad response from the web service.");
             }
+
+            ////Get Product by id from CustomerApi
+            //HttpResponseMessage response = client.GetAsync(uri + id).Result;
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    product = response.Content.ReadAsAsync<ProductDto>().Result;
+            //}
+            //else
+            //{
+            //    var uri2 = "api/Customers/ProductDetail/";
+
+            //    // Get product by id from StoreService
+            //    HttpResponseMessage response2 = client.GetAsync(uri2 + id).Result;
+            //    if (response2.IsSuccessStatusCode)
+            //    {
+            //        product = response2.Content.ReadAsAsync<ProductDto>().Result;
+            //    }
+            //    else
+            //    {
+            //        throw new Exception("Received a bad response from the web service.");
+            //    }
+            //}
 
             client.Dispose();
             return JsonConvert.SerializeObject(product);

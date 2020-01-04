@@ -1,23 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    public partial class UpdateCustomer : System.Web.UI.Page
+    public partial class UpdateCustomer : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                Security.RedirectIfNotUsersPage();
+                // Redirect to Home if user does not have permission to view this page
+                Security.RedirectIfNoPermissions();
+
                 // Send data to User Control
-                customerInputs.CustomerUpdateDto = CurrentUser.GetUserUpdate();
+                try
+                {
+                    customerInputs.CustomerUpdateDto = UserService.GetUserUpdate();
+                }
+                catch
+                {
+                    Response.Redirect("~/Default");
+                }
             }
         }
 
@@ -25,7 +29,7 @@ namespace ThreeAmigos.CustomerApp
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             CustomerUpdateDto customerUpdateDto = customerInputs.GetUpdatedCustomer();
-            CurrentUser.UpdateUser(customerUpdateDto);
+            UserService.UpdateUser(customerUpdateDto);
         }
 
         // Dummy data

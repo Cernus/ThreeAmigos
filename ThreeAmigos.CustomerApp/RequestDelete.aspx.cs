@@ -14,21 +14,19 @@ namespace ThreeAmigos.CustomerApp
         {
             if (!Page.IsPostBack)
             {
-
+                // Redirect if is Guest
+                Security.RedirectIfIsGuest();
             }
         }
 
-        //TODO
-        protected void delete_Click(object sender, EventArgs e)
+        protected void Delete_Click(object sender, EventArgs e)
         {
-            // TODO: Update active flag from Customer API if James does not have enough time to implement this
-
-            CurrentUser.RequestDelete();
+            UserService.RequestDelete();
         }
 
-        protected void backButton_Click(object sender, EventArgs e)
+        protected void BackButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default");
+            Security.RedirectToPreviousPage();
         }
     }
 }

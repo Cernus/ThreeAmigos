@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.SessionState;
 using ThreeAmigos.CustomerFacade;
 
 namespace ThreeAmigos.CustomerApp.Services
@@ -15,13 +16,12 @@ namespace ThreeAmigos.CustomerApp.Services
         public static void Authenticate(string username, string password)
         {
             // Get row that has matching username and password
-            bool userfound = customerFac.Authenticate(username, password);
+            int userId = customerFac.Authenticate(username, password);
 
-            if (userfound)
+            if (userId > 0)
             {
                 // TODO: Alter this so it gets the id of the current user instead of static int
-
-                FormsAuthentication.RedirectFromLoginPage("2", true);
+                FormsAuthentication.RedirectFromLoginPage(userId.ToString(), true);
             }
             else
             {
@@ -29,14 +29,32 @@ namespace ThreeAmigos.CustomerApp.Services
             }
         }
 
-        public static void RedirectIfNotUsersPage()
+        public static void SignOut()
+        {
+            FormsAuthentication.SignOut();
+            HttpContext.Current.Response.Redirect("~/Default");
+        }
+
+        // Redirect to Home Page if Current User is not owner of page or the Admin
+        public static void RedirectIfNoPermissions()
         {
             try
             {
-                string queryString = HttpContext.Current.Request.QueryString["Id"].ToString();
+                string queryString = HttpContext.Current.Request.QueryString["id"];
+                int pageId = Int32.Parse(queryString);
 
-                // If query string is not same as user's customerId and user is not the Admin
-                if(!CurrentUser.GetCustomerId().ToString().Equals(queryString) && CurrentUser.GetCustomerId() != GetAdminCustomerId())
+                int userId = UserService.GetCustomerId();
+
+                // Redirect if Not logged in, page has no query string or Customer goes not exist
+                RedirectIfInvalidCustomerId();
+                if (userId == 0 || pageId == 0)
+                {
+                    HttpContext.Current.Response.Redirect("~/Default");
+                }
+
+                bool idsMatch = (pageId == userId);
+
+                if (!(idsMatch || IsAdmin()))
                 {
                     HttpContext.Current.Response.Redirect("~/Default");
                 }
@@ -47,15 +65,89 @@ namespace ThreeAmigos.CustomerApp.Services
             }
         }
 
-        public static int GetAdminCustomerId()
+        public static void RedirectIfNotGuest()
         {
-            return adminCustomerId;
+            bool isLoggedIn = IsLoggedIn();
+            
+            if (isLoggedIn && !IsAdmin())
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
         }
 
-        // TODO (Reconfigure to be check if logged in; true or false)
-        public static bool RedirectIfNotGuest()
+        public static void RedirectIfIsGuest()
         {
-            if(IsGuest() || CurrentUser.GetCustomerId() == GetAdminCustomerId())
+            bool isLoggedIn = IsLoggedIn();
+
+            if(!isLoggedIn)
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+        }
+
+        public static void RedirectIfInvalidCustomerId()
+        {
+            try
+            {
+                // Check query string is an int
+                string queryString = HttpContext.Current.Request.QueryString["id"];
+                int pageId = Int32.Parse(queryString);
+
+                // Check that int belongs to a customer in the database
+                UserService.GetUser();
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+        }
+
+        public static void RedirectIfInvalidProductId()
+        {
+            try
+            {
+                string queryString = HttpContext.Current.Request.QueryString["id"];
+                int pageId = Int32.Parse(queryString);
+                ProductService.GetProduct(pageId);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+        }
+
+        public static void MemoriseCurrentPage(string previousPage)
+        {
+            //HttpContext.Current.Session["url"] = HttpContext.Current.Request.Url.AbsolutePath;
+            HttpContext.Current.Session["url"] = previousPage;
+        }
+
+        public static void RedirectToPreviousPage()
+        {
+            string absolutePath = "~/Default";
+            try
+            {
+                absolutePath = HttpContext.Current.Session["url"].ToString();
+            }
+            catch
+            {
+
+            }
+
+            HttpContext.Current.Response.Redirect(absolutePath);
+        }
+
+        // TODO: Delete
+        public static bool CheckIfValidPreviousPage(object validPreviousPage)
+        {
+            // Get previous page as a string
+            string previousPage = HttpContext.Current.Session["url"].ToString();
+
+            // Set new Previous Page
+            //MemoriseCurrentPage();
+
+            // Redirect if previous page is not the validPreviousPage
+            if (validPreviousPage.ToString() == previousPage)
             {
                 return true;
             }
@@ -65,10 +157,35 @@ namespace ThreeAmigos.CustomerApp.Services
             }
         }
 
-        // TODO
-        private static bool IsGuest()
+        public static int GetAdminCustomerId()
         {
-            return true;
+            return adminCustomerId;
+        }
+
+        // Return true if current user is the Admin
+        public static bool IsAdmin()
+        {
+            try
+            {
+                return UserService.GetCustomerId() == GetAdminCustomerId();
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Return true if the current user is logged in
+        public static bool IsLoggedIn()
+        {
+            if(HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

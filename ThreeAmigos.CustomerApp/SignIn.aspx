@@ -16,6 +16,7 @@
                 </div>
             </div>
 
+            <!-- TODO: Hide password as it is being typed -->
             <!-- Password -->
             <div class="form-group">
                 <div class="row">

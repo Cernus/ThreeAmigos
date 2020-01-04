@@ -18,6 +18,8 @@ namespace ThreeAmigos.OrderFacade
 
         public string GetInvoices(int id)
         {
+            // TODO: Assign orders to customers (Do not return all products for each id in the query string)
+            
             var invoices = new List<Invoice>();
 
             var products1 = new List<ProductOrder>();

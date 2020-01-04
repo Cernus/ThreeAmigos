@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ThreeAmigos.CustomerApp {
-    
-    
-    public partial class CreateCustomer {
-        
+namespace ThreeAmigos.CustomerApp
+{
+
+
+    public partial class CreateCustomer
+    {
+
         /// <summary>
         /// customerInputs control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ThreeAmigos.CustomerApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::CustomerApp.User_Controls.CustomerInputs customerInputs;
-        
+
         /// <summary>
         /// SubmitButton control.
         /// </summary>
@@ -29,14 +31,5 @@ namespace ThreeAmigos.CustomerApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SubmitButton;
-        
-        /// <summary>
-        /// backButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button backButton;
     }
 }

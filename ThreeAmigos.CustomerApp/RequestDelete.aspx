@@ -7,10 +7,10 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <asp:Button ID="deleteButton" class="btn btn-warning" runat="server" Text="Delete" OnClick="delete_Click" />
+                <asp:Button ID="DeleteButton" class="btn btn-warning" runat="server" Text="Delete" OnClick="Delete_Click" />
             </div>
             <div class="col-sm-6">
-                <asp:Button ID="backButton" class="btn btn-secondary" runat="server" Text="Back" OnClick="backButton_Click" />
+                <asp:Button ID="BackButton" class="btn btn-secondary" runat="server" Text="Back" OnClick="BackButton_Click" />
             </div>
         </div>
     </div>

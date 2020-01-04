@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    public partial class CustomerReviews : System.Web.UI.Page
+    public partial class CustomerReviews : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // TODO: Get products from StoreApi
+            // TODO: If StoreApi is down then get Products from Customer Api
+            
+            // Redirect if Customer Id does not exist in database
+            Security.RedirectIfInvalidCustomerId();
+
             PopulatePage();
         }
 
         private void PopulatePage()
         {
-            int customerId = CurrentUser.GetCustomerId();
+            int customerId = UserService.GetUserId();
             test.Text = ReviewService.GetCustomerReviews(customerId);
         }
     }

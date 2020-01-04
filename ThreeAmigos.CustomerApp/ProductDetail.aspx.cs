@@ -15,41 +15,14 @@ namespace ThreeAmigos.CustomerApp
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
-           {
-                try
-                {
-                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
-                }
-                catch
-                {
-                    Response.Redirect("~/Default");
-                }
+            {
+                // TODO: Wrap in try-catch
+                Security.RedirectIfInvalidProductId();
 
-                //Redirect to home if have not navigate here through Store Page
-                string previousPage = (string)ViewState["RefUrl"];
-                string substring = previousPage.Substring(previousPage.LastIndexOf('/') + 1);
-                if(substring == "Store")
-                {
-                    productId = Int32.Parse(Request.QueryString["Id"]);
-
-                    // Redirect to Home page if product does not exist
-                    try
-                    {
-                        PopulatePage();
-                        ShowReviews();
-                    }
-                    catch (Exception ex)
-                    {
-                        Response.Redirect("~/Default");
-                    }
-                }
-                else
-                {
-                    Response.Redirect("~/Default");
-                }
-                
+                // Redirect to Home page if product does not exist
+                PopulatePage();
+                ShowReviews();
             }
-
         }
 
         protected void OrderButton_Click(object sender, EventArgs e)
@@ -57,7 +30,7 @@ namespace ThreeAmigos.CustomerApp
             OrderDto orderDto = null;
 
             // Check that user has a delivery address and telephone number
-            if (CurrentUser.HasAddressAndTel())
+            if (UserService.HasAddressAndTel())
             {
                 productId = Int32.Parse(Request.QueryString["Id"]);
 
@@ -76,7 +49,7 @@ namespace ThreeAmigos.CustomerApp
                 if (ProductService.InStock(productId, quantity))
                 {
                     ProductService.DecrementStock(productId, quantity);
-                    
+
                     // Create Model
                     orderDto = new OrderDto
                     {
@@ -114,18 +87,13 @@ namespace ThreeAmigos.CustomerApp
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
-            object refUrl = ViewState["RefUrl"];
-            if (refUrl != null)
-            {
-                Response.Redirect((string)refUrl);
-            }
-            else
-            {
-                Response.Redirect("~/Default");
-            }
+            Security.RedirectToPreviousPage();
         }
+
         private void PopulatePage()
         {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+
             // Get product
             Product product = ProductService.GetProduct(productId);
 
@@ -160,10 +128,15 @@ namespace ThreeAmigos.CustomerApp
 
         private void ShowReviews()
         {
-            productId = Int32.Parse(Request.QueryString["Id"]);
-            test.Text = ReviewService.GetProductReviews(productId);
+            try
+            {
+                productId = Int32.Parse(Request.QueryString["Id"]);
+                test.Text = ReviewService.GetProductReviews(productId);
+            }
+            catch
+            {
+                // Handle not getting Reviews
+            }
         }
-
-
     }
 }

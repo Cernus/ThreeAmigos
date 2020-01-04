@@ -1,29 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
     // TODO: Add validation for creating/updating customer (especially tel number)
-    public partial class CreateCustomer : System.Web.UI.Page
+    public partial class CreateCustomer : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Security.RedirectIfNotGuest();
-                try
-                {
-                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
-                }
-                catch
-                {
-                    Response.Redirect("~/Default");
-                }
             }
         }
 
@@ -31,20 +19,7 @@ namespace ThreeAmigos.CustomerApp
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             CustomerUpdateDto customerUpdateDto = customerInputs.GetUpdatedCustomer();
-            CurrentUser.CreateUser(customerUpdateDto);
-        }
-
-        protected void backButton_Click(object sender, EventArgs e)
-        {
-            object refUrl = ViewState["RefUrl"];
-            if (refUrl != null)
-            {
-                Response.Redirect((string)refUrl);
-            }
-            else
-            {
-                Response.Redirect("~/Default");
-            }
+            UserService.CreateUser(customerUpdateDto);
         }
     }
 }

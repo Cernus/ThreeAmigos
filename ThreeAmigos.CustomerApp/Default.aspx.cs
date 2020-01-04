@@ -11,7 +11,7 @@ namespace ThreeAmigos.CustomerApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // No Security
         }
     }
 }

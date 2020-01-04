@@ -82,6 +82,8 @@
         <!-- Reviews -->
         <asp:Label ID="test" runat="server">[Reviews here]</asp:Label>
 
+        <!-- TODO: Hyperlink full names of reviewers to navigate to CustomerReviews for that user -->
+
         <%--Buttons--%>
         <div class="row">
             <div class="col-sm-6">

@@ -1,42 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using Newtonsoft.Json;
 using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    public partial class CustomerDetail : System.Web.UI.Page
+    public partial class CustomerDetail : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Show if user is admin
-            // Show if user is current user
-            // note don't need to consider if user is active or inactive
-
-            //string currentUserId = Membership.GetUser().ProviderUserKey.ToString();
-
-            //if(!Context.User.Identity.IsAuthenticated)
-            //{
-            //    Response.Redirect("~/Default");
-            //}
-
-            // TODO: This gets Id of current user
-            var test = Context.User.Identity.Name;
-
-
             if (!Page.IsPostBack)
             {
-                // Redirect to Home if non-admin user is not logged in or trying to view another customer
-                Security.RedirectIfNotUsersPage();
+                // Redirect to Home if user does not have permission to view this page
+                Security.RedirectIfNoPermissions();
+
                 PopulatePage();
             }
         }
@@ -45,7 +22,7 @@ namespace ThreeAmigos.CustomerApp
         private void PopulatePage()
         {
             // Get object from CustomerApi
-            Customer customer = CurrentUser.GetUser();
+            Customer customer = UserService.GetUser();
 
             // Display UserName
             if (customer.Username != null)

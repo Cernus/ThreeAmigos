@@ -9,15 +9,14 @@ using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    //TODO: Update "LastSignedIn" for this user
     public partial class SignIn : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            // Redirect to Home if user is not a Guest or the Admin
+            Security.RedirectIfNotGuest();
         }
 
-        //TODO
         protected void submitButton_Click(object sender, EventArgs e)
         {
             string username = usernameLabel.Text;

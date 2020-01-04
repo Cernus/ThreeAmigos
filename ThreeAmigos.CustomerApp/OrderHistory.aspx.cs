@@ -1,33 +1,32 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ThreeAmigos.CustomerApp.Models;
 using ThreeAmigos.CustomerApp.Services;
-using ThreeAmigos.OrderFacade;
 
 namespace ThreeAmigos.CustomerApp
 {
+    // TODO: Get Product Information from Product Service, not Dummy Order
     // TODO: Disable Write review link if a review for that product and customer already exist (call Review Service)
-    public partial class OrderHistory : System.Web.UI.Page
+    public partial class OrderHistory : Page
     {
         private List<Invoice> data;
-        private List<int> writtenReviewsProductIds;
+        private List<int> writtenReviewsProductIds; //TODO
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Security - Redirect if user is not logged in
             if (!Page.IsPostBack)
             {
+                // Redirect to Home if user does not have permission to view this page
+                Security.RedirectIfNoPermissions();
+
                 PopulatePage();
             }
         }
 
         private void PopulatePage()
         {
-            int customerId = CurrentUser.GetCustomerId();
+            int customerId = UserService.GetCustomerId();
             writtenReviewsProductIds = ReviewService.GetWrittenReviewsIds(customerId);
             data = OrderService.GetInvoices();
 

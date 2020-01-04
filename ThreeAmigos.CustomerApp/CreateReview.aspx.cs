@@ -11,28 +11,21 @@ namespace ThreeAmigos.CustomerApp
 {
     public partial class CreateReview : System.Web.UI.Page
     {
-        int productId;
         // TODO: Add validation on the spinner
         protected void Page_Load(object sender, EventArgs e)
         {
-            // TODO: Security: Redirect if not logged in
             if (!Page.IsPostBack)
             {
-                try
-                {
-                    ViewState["RefUrl"] = Request.UrlReferrer.ToString();
-                }
-                catch
-                {
-                    Response.Redirect("~/Default");
-                }
+                // Redirect to Home if Product with id in query string does not exist in database
+                Security.RedirectIfInvalidProductId();
+
                 PopulatePage();
             }
         }
 
         private void PopulatePage()
         {
-            productId = Int32.Parse(Request.QueryString["Id"]);
+            int productId = Int32.Parse(Request.QueryString["Id"]);
             string productName = ProductService.GetProductName(productId);
             if (productName != null)
             {
@@ -42,14 +35,14 @@ namespace ThreeAmigos.CustomerApp
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            productId = Int32.Parse(Request.QueryString["Id"]);
+            int productId = Int32.Parse(Request.QueryString["Id"]);
 
             ReviewDto reviewDto = new ReviewDto
             {
                 Rating = Int32.Parse(ratingSpinner.Value),
                 Description = bodyTextBox.Text,
                 ProductId = productId,
-                CustomerId = CurrentUser.GetCustomerId()
+                CustomerId = UserService.GetCustomerId()
             };
 
             ReviewService.CreateReview(reviewDto);
@@ -57,15 +50,7 @@ namespace ThreeAmigos.CustomerApp
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
-            object refUrl = ViewState["RefUrl"];
-            if (refUrl != null)
-            {
-                Response.Redirect((string)refUrl);
-            }
-            else
-            {
-                Response.Redirect("~/Default");
-            }
+            Security.RedirectToPreviousPage();
         }
     }
 }

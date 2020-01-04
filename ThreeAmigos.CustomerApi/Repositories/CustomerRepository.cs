@@ -17,10 +17,30 @@ namespace ThreeAmigos.CustomerApi.Repositories
             _context = context;
         }
 
-        // TODO
         public async Task<List<CustomerStaffDto>> GetCustomers()
         {
             List<Customer> customers = await _context.Customers.ToListAsync();
+
+            var customersDto = customers.Select(c => new CustomerStaffDto
+            {
+                CustomerId = c.CustomerId,
+                FullName = c.FirstName + " " + c.SecondName,
+                Address = c.Address,
+                EmailAddress = c.EmailAddress,
+                Tel = c.Tel,
+                Sell_To = c.Sell_To,
+                RegistrationTime = c.Registered,
+                LastVisit = c.LastOnline
+            }).ToList();
+
+            return customersDto;
+        }
+
+        public async Task<List<CustomerStaffDto>> GetRequestedDelete()
+        {
+            List<Customer> customers = await _context.Customers
+                .Where(c => c.RequestedDelete == true)
+                .ToListAsync();
 
             var customersDto = customers.Select(c => new CustomerStaffDto
             {
@@ -130,6 +150,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 entity.LastOnline = DateTime.Now.Date;
                 entity.Sell_To = true;
                 entity.Active = true;
+                entity.RequestedDelete = false;
 
                 _context.Add(entity);
                 // TODO: Should all other SaveChanges() be SaveChangesAsync()?
@@ -147,7 +168,10 @@ namespace ThreeAmigos.CustomerApi.Repositories
         public async Task<Customer> RequestDelete(int id)
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
-            // TODO: Send request to StaffApi
+            _ = entity.RequestedDelete = true;
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -155,7 +179,9 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
             _ = entity.Active == false;
-            _context.SaveChanges();
+
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
             return entity;
         }
@@ -164,7 +190,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
             _context.Customers.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return entity;
         }
@@ -213,16 +239,16 @@ namespace ThreeAmigos.CustomerApi.Repositories
 
         }
 
-        public async Task<bool> Authenticate(string username, string password)
+        public async Task<int> Authenticate(string username, string password)
         {
             try
             {
                 Customer entity = await _context.Customers.FirstAsync(c => c.Username == username && c.Password == password);
-                return true;
+                return entity.CustomerId;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
     }
