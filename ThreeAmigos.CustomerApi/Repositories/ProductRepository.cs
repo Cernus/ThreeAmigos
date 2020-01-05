@@ -14,6 +14,25 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             _context = context;
         }
+
+        public async Task<List<ProductDto>> GetProducts()
+        {
+            List<ProductDto> products = await _context.Products.ToListAsync();
+
+            var ProductDto = products.Select(p => new ProductDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CategoryName = p.CategoryName,
+                BrandName = p.BrandName,
+                Description = p.Description,
+                Price = p.Price,
+                StockLevel = p.StockLevel
+            }).ToList();
+
+            return products;
+        }
+
         public async Task<ProductDto> GetProduct(int id)
         {
             ProductDto product = await _context.Products
@@ -43,7 +62,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         {
             // Check that a product with this id does not already exist
             ProductDto checkProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
-            if(checkProduct != null)
+            if (checkProduct != null)
             {
                 return null;
             }
@@ -77,7 +96,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 ProductDto entity = _context.Products.FirstOrDefault(p => p.Id == product.Id);
 
                 // Only update fields that are not null
-                if(product.Name != null)
+                if (product.Name != null)
                 {
                     entity.Name = product.Name;
                 }
@@ -119,6 +138,6 @@ namespace ThreeAmigos.CustomerApi.Repositories
             }
         }
 
-        
+
     }
 }

@@ -57,6 +57,27 @@ namespace ThreeAmigos.CustomerFacade
             return JsonConvert.SerializeObject(customerUpdateDto);
         }
 
+        public string GetCustomerName(int id)
+        {
+            string customerName = null;
+            
+            var client = Client();
+
+            // Get customer Name from CustomerApi
+            HttpResponseMessage response = client.GetAsync("api/customers/customername/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                customerName = response.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            client.Dispose();
+            return customerName.Replace("\"", "");
+        }
+
         public HttpResponseMessage UpdateCustomer(int id, string json)
         {
             var client = Client();

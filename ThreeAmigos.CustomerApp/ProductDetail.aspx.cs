@@ -16,12 +16,60 @@ namespace ThreeAmigos.CustomerApp
         {
             if (!Page.IsPostBack)
             {
-                // TODO: Wrap in try-catch
                 Security.RedirectIfInvalidProductId();
 
                 // Redirect to Home page if product does not exist
                 PopulatePage();
                 ShowReviews();
+            }
+        }
+
+        private void PopulatePage()
+        {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+
+            // Get product
+            Product product = ProductService.GetProduct(productId);
+
+            if (product != null)
+            {
+                // Display Name
+                if (product.Name != null)
+                {
+                    nameLabel.Text = product.Name;
+                }
+
+                // Display Category
+                categoryLabel.Text = product.CategoryName;
+
+                // Display Brand
+                brandLabel.Text = product.BrandName;
+
+                // Display Description
+                descriptionLabel.Text = product.Description;
+
+                // Display Price
+                priceLabel.Text = product.Price.ToString();
+
+                // Display StockLevel
+                stockLevelLabel.Text = product.StockLevel.ToString();
+            }
+            else
+            {
+                throw new NullReferenceException("Product not found");
+            }
+        }
+
+        private void ShowReviews()
+        {
+            try
+            {
+                List<Review> reviews = ReviewService.GetProductReviews();
+                //test.Text = ReviewService.GetProductReviews().ToString();
+            }
+            catch
+            {
+                // Handle not getting Reviews
             }
         }
 
@@ -88,55 +136,6 @@ namespace ThreeAmigos.CustomerApp
         protected void BackButton_Click(object sender, EventArgs e)
         {
             Security.RedirectToPreviousPage();
-        }
-
-        private void PopulatePage()
-        {
-            productId = Int32.Parse(Request.QueryString["Id"]);
-
-            // Get product
-            Product product = ProductService.GetProduct(productId);
-
-            if (product != null)
-            {
-                // Display Name
-                if (product.Name != null)
-                {
-                    nameLabel.Text = product.Name;
-                }
-
-                // Display Category
-                categoryLabel.Text = product.CategoryName;
-
-                // Display Brand
-                brandLabel.Text = product.BrandName;
-
-                // Display Description
-                descriptionLabel.Text = product.Description;
-
-                // Display Price
-                priceLabel.Text = product.Price.ToString();
-
-                // Display StockLevel
-                stockLevelLabel.Text = product.StockLevel.ToString();
-            }
-            else
-            {
-                throw new NullReferenceException("Product not found");
-            }
-        }
-
-        private void ShowReviews()
-        {
-            try
-            {
-                productId = Int32.Parse(Request.QueryString["Id"]);
-                test.Text = ReviewService.GetProductReviews(productId);
-            }
-            catch
-            {
-                // Handle not getting Reviews
-            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         Task<List<CustomerStaffDto>> GetCustomers();
         Task<List<CustomerStaffDto>> GetRequestedDelete();
         Task<CustomerDetailDto> GetCustomer(int id);
+        Task<string> GetCustomerName(int id);
         Task<CustomerStaffDto> GetCustomerForStaffApi(int id);
         Task<Customer> UpdateCustomer(int id, CustomerUpdateDto customer);
         Task<Customer> CreateCustomer(CustomerUpdateDto customer);

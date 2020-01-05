@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using ThreeAmigos.CustomerApp.Models;
 using ThreeAmigos.CustomerFacade;
 
 namespace ThreeAmigos.CustomerApp.Services
@@ -43,7 +45,7 @@ namespace ThreeAmigos.CustomerApp.Services
                 string queryString = HttpContext.Current.Request.QueryString["id"];
                 int pageId = Int32.Parse(queryString);
 
-                int userId = UserService.GetCustomerId();
+                int userId = UserService.GetUserId();
 
                 // Redirect if Not logged in, page has no query string or Customer goes not exist
                 RedirectIfInvalidCustomerId();
@@ -94,7 +96,7 @@ namespace ThreeAmigos.CustomerApp.Services
                 int pageId = Int32.Parse(queryString);
 
                 // Check that int belongs to a customer in the database
-                UserService.GetUser();
+                UserService.GetCustomer();
             }
             catch
             {
@@ -111,6 +113,16 @@ namespace ThreeAmigos.CustomerApp.Services
                 ProductService.GetProduct(pageId);
             }
             catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+        }
+
+        public static void RedirectIfReviewExists()
+        {
+            // TODO: Reconfigure so json is parsed in Facades and throws an error if it cannot be done. Handle in Service classes by surrounding in
+            // a try-catch
+            if(!IsAdmin() && ReviewService.ReviewExists())
             {
                 HttpContext.Current.Response.Redirect("~/Default");
             }
@@ -167,7 +179,7 @@ namespace ThreeAmigos.CustomerApp.Services
         {
             try
             {
-                return UserService.GetCustomerId() == GetAdminCustomerId();
+                return UserService.GetUserId() == GetAdminCustomerId();
             }
             catch
             {

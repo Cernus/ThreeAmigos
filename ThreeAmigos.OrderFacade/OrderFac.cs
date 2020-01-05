@@ -20,9 +20,9 @@ namespace ThreeAmigos.OrderFacade
         {
             double price = 0.00;
 
-            for (int i = 0; i < invoice.products.Count; i++)
+            for (int i = 0; i < invoice.Products.Count; i++)
             {
-                price += invoice.products[i].TotalPrice;
+                price += invoice.Products[i].TotalPrice;
             }
 
             return price;

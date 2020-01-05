@@ -265,6 +265,7 @@
     <Compile Include="Models\OrderDto.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductOrder.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\ReviewDto.cs" />
     <Compile Include="OrderHistory.aspx.cs">
       <DependentUpon>OrderHistory.aspx</DependentUpon>

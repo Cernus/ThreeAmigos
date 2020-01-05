@@ -21,6 +21,12 @@ namespace ThreeAmigos.ProductFacade
 
             return JsonConvert.SerializeObject(ListProduct);
         }
+
+        public string GetProductsFromCustomerApi()
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetProduct(int id)
         {
             ProductDto product = null;

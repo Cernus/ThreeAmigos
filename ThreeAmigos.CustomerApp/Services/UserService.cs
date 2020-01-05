@@ -16,7 +16,8 @@ namespace ThreeAmigos.CustomerApp.Services
     {
         private static CustomerFac customerFac = new CustomerFac();
 
-        public static int GetCustomerId()
+        // Return CustomerId for current user
+        public static int GetUserId()
         {
             try
             {
@@ -29,12 +30,12 @@ namespace ThreeAmigos.CustomerApp.Services
         }
 
         // Return Customer information for customer of current page
-        public static Customer GetUser()
+        public static Customer GetCustomer()
         {
             string json = null;
             try
             {
-                int customerId = GetUserId();
+                int customerId = GetCustomerId();
                 json = customerFac.GetCustomer(customerId);
             }
             catch
@@ -45,7 +46,8 @@ namespace ThreeAmigos.CustomerApp.Services
             return JsonConvert.DeserializeObject<Customer>(json);
         }
 
-        public static int GetUserId()
+        // Get CustomerId for customer of current page
+        public static int GetCustomerId()
         {
             try
             {
@@ -59,6 +61,23 @@ namespace ThreeAmigos.CustomerApp.Services
             }
         }
 
+        public static string GetCustomerName()
+        {
+            string customerName = null;
+            
+            try
+            {
+                int customerId = GetCustomerId();
+                customerName = customerFac.GetCustomerName(customerId);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+
+            return customerName;
+        }
+
         public static CustomerUpdateDto GetUserUpdate()
         {
             string queryString = HttpContext.Current.Request.QueryString["id"];
@@ -70,7 +89,7 @@ namespace ThreeAmigos.CustomerApp.Services
         // Update Customer record in database
         public static void UpdateUser(CustomerUpdateDto customerUpdateDto)
         {
-            int id = GetCustomerId();
+            int id = GetUserId();
             string json = JsonConvert.SerializeObject(customerUpdateDto);
             HttpResponseMessage response = customerFac.UpdateCustomer(id, json);
             if (response.IsSuccessStatusCode)
@@ -101,7 +120,7 @@ namespace ThreeAmigos.CustomerApp.Services
         // Request delete for customer
         public static void RequestDelete()
         {
-            int customerId = GetCustomerId();
+            int customerId = GetUserId();
 
             HttpResponseMessage response = customerFac.RequestDelete(customerId); ;
             if (response.IsSuccessStatusCode)
@@ -118,7 +137,7 @@ namespace ThreeAmigos.CustomerApp.Services
 
         public static bool HasAddressAndTel()
         {
-            int id = GetCustomerId();
+            int id = GetUserId();
             if (customerFac.HasAddressAndTel(id))
             {
                 return true;

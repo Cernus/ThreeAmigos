@@ -11,7 +11,7 @@ namespace ThreeAmigos.ProductFacade
 {
     public class ProductFac : IProductFac
     {
-        // Get all Products
+        // Get all Products from Store Api
         public string GetProducts()
         {
             var productList = new List<ProductDto>();
@@ -23,6 +23,28 @@ namespace ThreeAmigos.ProductFacade
             // Get all products from StoreService
             HttpResponseMessage response = client.GetAsync(uri).Result;
             if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            // TODO: Surround in try and catch for all of these in each facade?
+            productList = response.Content.ReadAsAsync<List<ProductDto>>().Result;
+            client.Dispose();
+            return JsonConvert.SerializeObject(productList);
+        }
+
+        // Get All Products from Customer Api
+        public string GetProductsFromCustomerApi()
+        {
+            var productList = new List<ProductDto>();
+
+            var client = CustomerApiClient();
+
+            var uri = "api/Customers/ProductDetails";
+
+            // Get all products from CustomerApi
+            HttpResponseMessage response = client.GetAsync(uri).Result;
+            if(!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
             }
@@ -52,28 +74,6 @@ namespace ThreeAmigos.ProductFacade
             {
                 throw new Exception("Received a bad response from the web service.");
             }
-
-            ////Get Product by id from CustomerApi
-            //HttpResponseMessage response = client.GetAsync(uri + id).Result;
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    product = response.Content.ReadAsAsync<ProductDto>().Result;
-            //}
-            //else
-            //{
-            //    var uri2 = "api/Customers/ProductDetail/";
-
-            //    // Get product by id from StoreService
-            //    HttpResponseMessage response2 = client.GetAsync(uri2 + id).Result;
-            //    if (response2.IsSuccessStatusCode)
-            //    {
-            //        product = response2.Content.ReadAsAsync<ProductDto>().Result;
-            //    }
-            //    else
-            //    {
-            //        throw new Exception("Received a bad response from the web service.");
-            //    }
-            //}
 
             client.Dispose();
             return JsonConvert.SerializeObject(product);
@@ -112,7 +112,7 @@ namespace ThreeAmigos.ProductFacade
             }
 
             client.Dispose();
-            return productName;
+            return productName.Replace("\"", ""); ;
         }
 
         // TODO: Redesign so it checks whether there is enough in stock to match the quantity being ordered

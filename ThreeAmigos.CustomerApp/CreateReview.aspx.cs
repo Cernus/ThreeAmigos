@@ -19,6 +19,9 @@ namespace ThreeAmigos.CustomerApp
                 // Redirect to Home if Product with id in query string does not exist in database
                 Security.RedirectIfInvalidProductId();
 
+                // TODO: Redirect to Home if this User has already submitted a Review for this Product
+                Security.RedirectIfReviewExists();
+
                 PopulatePage();
             }
         }
@@ -42,7 +45,7 @@ namespace ThreeAmigos.CustomerApp
                 Rating = Int32.Parse(ratingSpinner.Value),
                 Description = bodyTextBox.Text,
                 ProductId = productId,
-                CustomerId = UserService.GetCustomerId()
+                CustomerId = UserService.GetUserId()
             };
 
             ReviewService.CreateReview(reviewDto);

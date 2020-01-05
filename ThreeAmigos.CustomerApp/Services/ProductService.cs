@@ -47,6 +47,30 @@ namespace ThreeAmigos.CustomerApp.Services
             return JsonConvert.DeserializeObject<List<Product>>(json);
         }
 
+        // Get all Products from Store Api. If Store Api is down then get all Products from Customer Api
+        public static List<Product> GetProductsDefaultStoreApi()
+        {
+            try
+            {
+                // Get Products from Store Api
+                return GetProducts();
+            }
+            catch
+            {
+                try
+                {
+                    // Get Products from Customer Api
+                    var json = productFac.GetProductsFromCustomerApi();
+                    return JsonConvert.DeserializeObject<List<Product>>(json);
+                }
+                catch
+                {
+                    // Return null if both Services are down
+                    return null;
+                }
+            }
+        }
+
         // Check if product is currently in stock
         public static bool InStock(int id, int quantity)
         {

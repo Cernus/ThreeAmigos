@@ -30,7 +30,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
         public async Task<ActionResult<IEnumerable<CustomerStaffDto>>> Details()
         {
             List<CustomerStaffDto> customers = await _customerRepository.GetCustomers();
-            return customers;
+            return Ok(customers);
         }
 
         // GET: api/Customers/GetRequestedDelete
@@ -38,7 +38,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
         public async Task<ActionResult<IEnumerable<CustomerStaffDto>>> GetRequestedDelete()
         {
             List<CustomerStaffDto> customers = await _customerRepository.GetRequestedDelete();
-            return customers;
+            return Ok(customers);
         }
 
         // GET: api/Customers/Detail/5
@@ -52,7 +52,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
                 return NotFound();
             }
 
-            return customerDto;
+            return Ok(customerDto);
         }
 
         // GET: api/Customers/Get/5
@@ -66,7 +66,21 @@ namespace ThreeAmigos.CustomerApi.Controllers
                 return NotFound();
             }
 
-            return customerDto;
+            return Ok(customerDto);
+        }
+
+        // GET api/Customers/CustomerName/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<string>> CustomerName(int id)
+        {
+            string customerName = await _customerRepository.GetCustomerName(id);
+
+            if(customerName == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customerName);
         }
 
         // TODO: Create private method that checks entity == null etc
@@ -213,6 +227,14 @@ namespace ThreeAmigos.CustomerApi.Controllers
             return userId;
         }
 
+        // GET: api/Customers/ProductDetails
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> ProductDetails()
+        {
+            List<ProductDto> products = await _productRepository.GetProducts();
+            return Ok(products);
+        }
+
         // GET: api/Customers/ProductDetail/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> ProductDetail(int id)
@@ -224,7 +246,7 @@ namespace ThreeAmigos.CustomerApi.Controllers
                 return NotFound();
             }
 
-            return productDto;
+            return Ok(productDto);
         }
 
         // GET: api/Customers/GetProductId/5

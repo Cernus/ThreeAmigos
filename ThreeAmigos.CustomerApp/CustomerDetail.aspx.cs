@@ -22,7 +22,7 @@ namespace ThreeAmigos.CustomerApp
         private void PopulatePage()
         {
             // Get object from CustomerApi
-            Customer customer = UserService.GetUser();
+            Customer customer = UserService.GetCustomer();
 
             // Display UserName
             if (customer.Username != null)

@@ -63,7 +63,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 .Where(c => c.CustomerId == id)
                 .FirstOrDefaultAsync();
 
-            if(customer != null)
+            if (customer != null)
             {
                 return new CustomerDetailDto
                 {
@@ -81,6 +81,15 @@ namespace ThreeAmigos.CustomerApi.Repositories
             {
                 return null;
             }
+        }
+
+        public async Task<string> GetCustomerName(int id)
+        {
+            Customer customer = await _context.Customers
+                .Where(c => c.CustomerId == id)
+                .FirstOrDefaultAsync();
+
+            return customer.Username;
         }
 
         public async Task<CustomerStaffDto> GetCustomerForStaffApi(int id)
@@ -157,7 +166,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 await _context.SaveChangesAsync();
 
                 return entity;
-                
+
             }
             catch (Exception ex)
             {
@@ -194,7 +203,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
 
             return entity;
         }
-                
+
         public async Task<CustomerStaffDto> UpdateSellTo(int id, bool sell)
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
@@ -228,7 +237,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         public async Task<bool> HasAddressAndTel(int id)
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
-            if(entity.Address != null && entity.Tel != null)
+            if (entity.Address != null && entity.Tel != null)
             {
                 return true;
             }

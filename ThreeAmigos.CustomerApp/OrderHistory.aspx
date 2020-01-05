@@ -42,7 +42,8 @@
                                         ID="ProductOrderGridView"
                                         runat="server"
                                         AutoGenerateColumns="false"
-                                        DataKeyNames="OrderId"
+                                        DataKeyNames="ProductId"
+                                        OnRowDataBound="ProductOrderGridView_RowDataBound"
                                         CssClass="ChildGrid">
                                         <Columns>
                                             <asp:BoundField ItemStyle-Width="150px" DataField="Name" HeaderText="Name" />
@@ -53,7 +54,7 @@
                                             <asp:BoundField ItemStyle-Width="150px" DataField="Quantity" HeaderText="Quantity" />
                                             <asp:TemplateField HeaderText="Write Review">
                                                 <ItemTemplate>
-                                                    <asp:HyperLink ID="NameLink" runat="server" DataNavigateUrlFields="Name" Text="Write Review"
+                                                    <asp:HyperLink ID="CreateReviewLink" runat="server" DataNavigateUrlFields="Name" Text="Write Review"
                                                         NavigateUrl='<%# string.Format("~/CreateReview.aspx?Id={0}", HttpUtility.UrlEncode(Eval("ProductId").ToString())) %>'></asp:HyperLink>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
@@ -63,9 +64,11 @@
 
                             </ItemTemplate>
                         </asp:TemplateField>
+   
                         <asp:BoundField ItemStyle-Width="150px" DataField="reference" HeaderText="Reference" />
                         <asp:BoundField ItemStyle-Width="150px" DataField="invoiceCost" HeaderText="Invoice Cost" />
                         <asp:BoundField ItemStyle-Width="150px" DataField="status" HeaderText="Status" />
+                        <asp:BoundField ItemStyle-Width="150px" DataField="orderDate" HeaderText="Order Date" />
                     </Columns>
                 </asp:GridView>
             </div>

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI;
+using ThreeAmigos.CustomerApp.Models;
 using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
@@ -8,10 +10,6 @@ namespace ThreeAmigos.CustomerApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // TODO: Get products from StoreApi
-            // TODO: If StoreApi is down then get Products from Customer Api
-            
-            // Redirect if Customer Id does not exist in database
             Security.RedirectIfInvalidCustomerId();
 
             PopulatePage();
@@ -19,8 +17,13 @@ namespace ThreeAmigos.CustomerApp
 
         private void PopulatePage()
         {
-            int customerId = UserService.GetUserId();
-            test.Text = ReviewService.GetCustomerReviews(customerId);
+            // TODO: Display alternate message if there are no reviews in the list
+
+            List<Review> reviews = ReviewService.GetCustomerReviews();
+
+            ProductReviewLabel.Text = reviews[0].CustomerName + "'s Reviews";
+            ReviewGridView.DataSource = reviews;
+            ReviewGridView.DataBind();
         }
     }
 }

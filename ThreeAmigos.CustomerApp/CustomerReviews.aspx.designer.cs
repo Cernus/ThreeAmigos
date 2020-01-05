@@ -7,18 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ThreeAmigos.CustomerApp {
-    
-    
-    public partial class CustomerReviews {
-        
+namespace ThreeAmigos.CustomerApp
+{
+
+
+    public partial class CustomerReviews
+    {
+
         /// <summary>
-        /// test control.
+        /// ProductReviewLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label test;
+        protected global::System.Web.UI.WebControls.Label ProductReviewLabel;
+
+        /// <summary>
+        /// ReviewGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ReviewGridView;
     }
 }

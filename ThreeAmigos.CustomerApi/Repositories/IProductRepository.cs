@@ -8,6 +8,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
 {
     public interface IProductRepository
     {
+        Task<List<ProductDto>> GetProducts();
         Task<ProductDto> GetProduct(int id);
         Task<ProductDto> CreateProduct(ProductDto product);
         Task<ProductDto> UpdateProduct(ProductDto product);

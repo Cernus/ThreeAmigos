@@ -22,7 +22,7 @@ namespace CustomerApp
 
         private void SetLinkUrls()
         {
-            int customerId = UserService.GetCustomerId();
+            int customerId = UserService.GetUserId();
             
             CustomerDetailLink.HRef = "CustomerDetail?Id=" + customerId;
             UpdateCustomerLink.HRef = "UpdateCustomer?id=" + customerId;

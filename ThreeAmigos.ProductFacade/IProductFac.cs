@@ -10,6 +10,7 @@ namespace ThreeAmigos.ProductFacade
     public interface IProductFac
     {
         string GetProducts();
+        string GetProductsFromCustomerApi();
         string GetProduct(int id);
         bool InStock(int id, int quantity);
         // TODO
