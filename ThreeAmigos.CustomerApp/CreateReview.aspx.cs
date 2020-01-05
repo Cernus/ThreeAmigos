@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using ThreeAmigos.CustomerApp.Models;
 using ThreeAmigos.CustomerApp.Services;
 
+// TODO: Investigage Bug: https://threeamigoscustomerapp.azurewebsites.net/CreateReview?Id=4 as TestCustomer is redirected despite being able to select create Review on Order History
 namespace ThreeAmigos.CustomerApp
 {
     public partial class CreateReview : System.Web.UI.Page

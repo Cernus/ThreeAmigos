@@ -231,7 +231,9 @@ namespace ThreeAmigos.ProductFacade
         {
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            // TODO: Redirect back to deployed Api
+            //client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
