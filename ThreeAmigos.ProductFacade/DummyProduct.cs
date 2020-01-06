@@ -6,7 +6,6 @@ using System.Text;
 using ThreeAmigos.ProductFacade.Models;
 using System.Threading.Tasks;
 
-// TODO: Eventually replace this method with one that calls an API (and change dependancy injection)
 namespace ThreeAmigos.ProductFacade
 {
     public class DummyProduct : IProductFac
@@ -44,7 +43,6 @@ namespace ThreeAmigos.ProductFacade
             }
             else
             {
-                //TODO: Get Product by id from StoreApi
                 product = Dummy(id);
                 return JsonConvert.SerializeObject(product);
             }
@@ -78,7 +76,6 @@ namespace ThreeAmigos.ProductFacade
             }
         }
 
-        // TODO: Make sure that Dispose is used everywhere
         public string GetProductName(int id)
         {
             string productName;
@@ -94,7 +91,6 @@ namespace ThreeAmigos.ProductFacade
             }
             else
             {
-                //TODO: Get Product Name id from StoreApi
                 throw new Exception("Received a bad response from the web service.");
             }
 
@@ -173,9 +169,7 @@ namespace ThreeAmigos.ProductFacade
         {
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            //TODO: Direct BaseAddress towards deployed Api
-            //client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
-            client.BaseAddress = new System.Uri("https://localhost:44301/");
+            client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

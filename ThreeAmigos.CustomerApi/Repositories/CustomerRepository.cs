@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ThreeAmigos.CustomerApi.Models;
 
-//https://medium.com/@gabrymartinez/how-to-create-your-own-little-restful-web-api-and-not-get-lost-in-the-process-part-2-473400256ce0
-
 namespace ThreeAmigos.CustomerApi.Repositories
 {
     public class CustomerRepository : ICustomerRepository
@@ -92,6 +90,19 @@ namespace ThreeAmigos.CustomerApi.Repositories
             return customer.Username;
         }
 
+        public async Task<List<CustomerName>> GetCustomerNames()
+        {
+            List<Customer> customers = await _context.Customers.ToListAsync();
+
+            List<CustomerName> customerNames = customers.Select(c => new CustomerName
+            {
+                CustomerId = c.CustomerId,
+                FullName = c.FirstName + " " + c.SecondName
+            }).ToList();
+
+            return customerNames;
+        }
+
         public async Task<CustomerStaffDto> GetCustomerForStaffApi(int id)
         {
             Customer customer = await _context.Customers
@@ -162,7 +173,6 @@ namespace ThreeAmigos.CustomerApi.Repositories
                 entity.RequestedDelete = false;
 
                 _context.Add(entity);
-                // TODO: Should all other SaveChanges() be SaveChangesAsync()?
                 await _context.SaveChangesAsync();
 
                 return entity;
@@ -228,16 +238,10 @@ namespace ThreeAmigos.CustomerApi.Repositories
             return customerDto;
         }
 
-        // TODO: Currently not implemented/used
-        public async Task<bool> SaveAllAsync()
-        {
-            return (await _context.SaveChangesAsync() > 0);
-        }
-
-        public async Task<bool> HasAddressAndTel(int id)
+        public async Task<bool> HasDeliveryDetails(int id)
         {
             Customer entity = await _context.Customers.FirstAsync(c => c.CustomerId == id);
-            if (entity.Address != null && entity.Tel != null)
+            if (entity.FirstName != null && entity.SecondName != null && entity.Address != null && entity.Tel != null)
             {
                 return true;
             }
@@ -245,7 +249,6 @@ namespace ThreeAmigos.CustomerApi.Repositories
             {
                 return false;
             }
-
         }
 
         public async Task<int> Authenticate(string username, string password)

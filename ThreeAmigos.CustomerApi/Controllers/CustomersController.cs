@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 using ThreeAmigos.CustomerApi.Models;
 using ThreeAmigos.CustomerApi.Repositories;
 
+// TODO: Should Products stuff be in their own controller?
 namespace ThreeAmigos.CustomerApi.Controllers
 {
-    // TODO: Should Products be in their own controller?
-    //[Route("api/customers")]
     [Route("api/customers/{action}")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -83,7 +82,14 @@ namespace ThreeAmigos.CustomerApi.Controllers
             return Ok(customerName);
         }
 
-        // TODO: Create private method that checks entity == null etc
+        // GET api/Customers/CustomerNames
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CustomerName>>> CustomerNames()
+        {
+            List<CustomerName> customers = await _customerRepository.GetCustomerNames();
+            return Ok(customers);
+        }
+
         // POST: api/Customers/Create
         [HttpPost]
         public async Task<ActionResult<Customer>> Create([FromBody]CustomerUpdateDto customer)
@@ -209,11 +215,11 @@ namespace ThreeAmigos.CustomerApi.Controllers
             return Ok(entity);
         }
 
-        // GET api/Customers/HasAddressAndTel/5
+        // GET api/Customers/DeliveryDetails/5
         [HttpGet("{id}")]
-        public async Task<bool> HasAddressAndTel(int id)
+        public async Task<bool> DeliveryDetails(int id)
         {
-            bool valid = await _customerRepository.HasAddressAndTel(id);
+            bool valid = await _customerRepository.HasDeliveryDetails(id);
 
             return valid;
         }

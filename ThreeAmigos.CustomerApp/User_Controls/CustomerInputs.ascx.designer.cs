@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CustomerApp.User_Controls
-{
-
-
-    public partial class CustomerInputs
-    {
-
+namespace CustomerApp.User_Controls {
+    
+    
+    public partial class CustomerInputs {
+        
         /// <summary>
         /// usernameTextBox control.
         /// </summary>
@@ -22,7 +20,16 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox usernameTextBox;
-
+        
+        /// <summary>
+        /// usernameValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator usernameValidator;
+        
         /// <summary>
         /// passwordTextBox control.
         /// </summary>
@@ -31,7 +38,16 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox passwordTextBox;
-
+        
+        /// <summary>
+        /// passwordValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator passwordValidator;
+        
         /// <summary>
         /// firstNameTextBox control.
         /// </summary>
@@ -40,7 +56,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox firstNameTextBox;
-
+        
         /// <summary>
         /// secondNameTextBox control.
         /// </summary>
@@ -49,7 +65,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox secondNameTextBox;
-
+        
         /// <summary>
         /// address0TextBox control.
         /// </summary>
@@ -58,7 +74,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox address0TextBox;
-
+        
         /// <summary>
         /// address1TextBox control.
         /// </summary>
@@ -67,7 +83,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox address1TextBox;
-
+        
         /// <summary>
         /// address2TextBox control.
         /// </summary>
@@ -76,7 +92,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox address2TextBox;
-
+        
         /// <summary>
         /// address3TextBox control.
         /// </summary>
@@ -85,7 +101,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox address3TextBox;
-
+        
         /// <summary>
         /// address4TextBox control.
         /// </summary>
@@ -94,7 +110,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox address4TextBox;
-
+        
         /// <summary>
         /// emailAddressTextBox control.
         /// </summary>
@@ -103,7 +119,7 @@ namespace CustomerApp.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox emailAddressTextBox;
-
+        
         /// <summary>
         /// telTextBox control.
         /// </summary>

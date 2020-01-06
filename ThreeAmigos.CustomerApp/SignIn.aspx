@@ -16,7 +16,6 @@
                 </div>
             </div>
 
-            <!-- TODO: Hide password as it is being typed -->
             <!-- Password -->
             <div class="form-group">
                 <div class="row">
@@ -24,7 +23,7 @@
                         <asp:Label runat="server"><strong>Password: </strong></asp:Label>
                     </div>
                     <div class="col-md-8">
-                        <asp:TextBox ID="passwordLabel" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="passwordLabel" TextMode="Password" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
             </div>

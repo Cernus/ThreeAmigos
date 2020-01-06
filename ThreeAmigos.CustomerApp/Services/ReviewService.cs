@@ -32,37 +32,44 @@ namespace ThreeAmigos.CustomerApp.Services
 
         public static List<Review> GetCustomerReviews()
         {
-            int customerId = UserService.GetCustomerId();
+            int customerId = UserService.GetUserId();
 
             string json = reviewFac.GetCustomerReviews(customerId);
-
-            string customerName = UserService.GetCustomerName();
-            List<Product> products = ProductService.GetProductsDefaultStoreApi();
             List<ReviewDto> reviewsDto = JsonConvert.DeserializeObject<List<ReviewDto>>(json);
-            List<Review> customerReviews = new List<Review>();
 
-            // TODO: Copy this safe method of creating a list to all other times in solution
-            foreach(ReviewDto reviewDto in reviewsDto)
+            if(reviewsDto.Count > 0)
             {
-                try
+                string customerName = UserService.GetUserName();
+                List<Product> products = ProductService.GetProductsDefaultStoreApi();
+                List<Review> customerReviews = new List<Review>();
+
+                // TODO: Copy this safe method of creating a list to all other times in solution
+                foreach (ReviewDto reviewDto in reviewsDto)
                 {
-                    customerReviews.Add(new Review
+                    try
                     {
-                        Rating = reviewDto.Rating,
-                        Description = reviewDto.Description,
-                        ProductName = products.FirstOrDefault(p => p.Id == reviewDto.ProductId).Name,
-                        CustomerName = customerName,
-                        ProductId = reviewDto.ProductId
-                    });
-                }
-                catch
-                {
+                        customerReviews.Add(new Review
+                        {
+                            Rating = reviewDto.Rating,
+                            Description = reviewDto.Description,
+                            ProductName = products.FirstOrDefault(p => p.Id == reviewDto.ProductId).Name,
+                            CustomerName = customerName,
+                            ProductId = reviewDto.ProductId
+                        });
+                    }
+                    catch
+                    {
+
+                    }
 
                 }
-                
+
+                return customerReviews;
             }
-
-            return customerReviews;
+            else
+            {
+                return null;
+            }
         }
 
         public static List<Review> GetProductReviews()
@@ -77,11 +84,10 @@ namespace ThreeAmigos.CustomerApp.Services
             string json = reviewFac.GetProductReviews(productId);
 
             string productName = ProductService.GetProductName(productId);
-            //List<Customer> customers = UserService.GetCustomers();
+            List<CustomerName> customerNames = UserService.GetCustomerNames();
             List<ReviewDto> reviewsDto = JsonConvert.DeserializeObject<List<ReviewDto>>(json);
             List<Review> productReviews = new List<Review>();
 
-            // TODO: Copy this safe method of creating a list to all other times in solution
             foreach (ReviewDto reviewDto in reviewsDto)
             {
                 try
@@ -91,7 +97,7 @@ namespace ThreeAmigos.CustomerApp.Services
                         Rating = reviewDto.Rating,
                         Description = reviewDto.Description,
                         ProductName = productName,
-                        CustomerName = "",
+                        CustomerName = customerNames.FirstOrDefault(c => c.CustomerId == reviewDto.CustomerId).FullName,
                         ProductId = reviewDto.ProductId
                     }) ;
                 }
@@ -122,23 +128,29 @@ namespace ThreeAmigos.CustomerApp.Services
             // Get all Reviews belonging to this customer
             List<Review> reviews = ReviewService.GetCustomerReviews();
 
-            // Create list of all ProductIds in Reviews by this Customer
-            List<int> reviewedProductIds = new List<int>();
-            foreach (Review review in reviews)
+            try
             {
-                reviewedProductIds.Add(review.ProductId);
-            }
+                // Create list of all ProductIds in Reviews by this Customer
+                List<int> reviewedProductIds = new List<int>();
+                foreach (Review review in reviews)
+                {
+                    reviewedProductIds.Add(review.ProductId);
+                }
 
-            // Return true if productId is in reviewedProductIds
-            if(reviewedProductIds.Contains(productId))
-            {
-                return true;
+                // Return true if productId is in reviewedProductIds
+                if (reviewedProductIds.Contains(productId))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch
             {
                 return false;
             }
-
         }
     }
 }

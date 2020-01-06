@@ -78,6 +78,27 @@ namespace ThreeAmigos.CustomerFacade
             return customerName.Replace("\"", "");
         }
 
+        public string GetCustomerNames()
+        {
+            string json = null;
+
+            var client = Client();
+            // Get customer names from CustomerApi
+            HttpResponseMessage response = client.GetAsync("api/customers/customernames/").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                json = response.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                throw new Exception("Received a bad response from the web service.");
+            }
+
+            client.Dispose();
+            return json;
+
+        }
+
         public HttpResponseMessage UpdateCustomer(int id, string json)
         {
             var client = Client();
@@ -127,18 +148,18 @@ namespace ThreeAmigos.CustomerFacade
         }
 
         // Check that Customer has an Address and Telephone Number
-        public bool HasAddressAndTel(int id)
+        public bool HasDeliveryDetails(int id)
         {
             var client = Client();
 
-            var uri = "api/customers/HasAddressAndTel/" + id;
+            var uri = "api/customers/DeliveryDetails/" + id;
 
             // Get customer by id from CustomerApi
             HttpResponseMessage response = client.GetAsync(uri).Result;
             if (response.IsSuccessStatusCode)
             {
                 client.Dispose();
-                return true;
+                return response.Content.ReadAsAsync<bool>().Result;
             }
             else
             {
@@ -179,8 +200,8 @@ namespace ThreeAmigos.CustomerFacade
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
             // TODO: Redirect back to deployed Api
-            //client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
-            client.BaseAddress = new System.Uri("https://localhost:44301/");
+            client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
+            //client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

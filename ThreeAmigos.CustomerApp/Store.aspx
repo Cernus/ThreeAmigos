@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Store.aspx.cs" Inherits="ThreeAmigos.CustomerApp.Store" %>
 
-<%-- Add "View Reviews" link on each Product in table. And create ProductReviews.aspx page --%>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script>
         <%--Loose Search--%>

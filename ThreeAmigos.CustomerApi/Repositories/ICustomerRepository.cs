@@ -9,11 +9,11 @@ namespace ThreeAmigos.CustomerApi.Repositories
 {
     public interface ICustomerRepository
     {
-        Task<bool> SaveAllAsync();
         Task<List<CustomerStaffDto>> GetCustomers();
         Task<List<CustomerStaffDto>> GetRequestedDelete();
         Task<CustomerDetailDto> GetCustomer(int id);
         Task<string> GetCustomerName(int id);
+        Task<List<CustomerName>> GetCustomerNames();
         Task<CustomerStaffDto> GetCustomerForStaffApi(int id);
         Task<Customer> UpdateCustomer(int id, CustomerUpdateDto customer);
         Task<Customer> CreateCustomer(CustomerUpdateDto customer);
@@ -21,7 +21,7 @@ namespace ThreeAmigos.CustomerApi.Repositories
         Task<Customer> SoftDelete(int id);
         Task<Customer> HardDelete(int id);
         Task<CustomerStaffDto> UpdateSellTo(int id, bool sell);
-        Task<bool> HasAddressAndTel(int id);
+        Task<bool> HasDeliveryDetails(int id);
         Task<int> Authenticate(string username, string password);
     }
 }

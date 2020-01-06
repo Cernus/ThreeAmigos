@@ -61,6 +61,41 @@ namespace ThreeAmigos.CustomerApp.Services
             }
         }
 
+        // Return a list of objects containing all customer Id's and names
+        public static List<CustomerName> GetCustomerNames()
+        {
+            string json = null;
+            List<CustomerName> customerNames = new List<CustomerName>();
+            try
+            {
+                json = customerFac.GetCustomerNames();
+                customerNames = JsonConvert.DeserializeObject<List<CustomerName>>(json);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+
+            return customerNames;
+        }
+
+        public static string GetUserName()
+        {
+            string customerName = null;
+
+            try
+            {
+                int customerId = Int32.Parse(HttpContext.Current.User.Identity.Name);
+                customerName = customerFac.GetCustomerName(customerId);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Redirect("~/Default");
+            }
+
+            return customerName;
+        }
+        // TODO: Delete if unused
         public static string GetCustomerName()
         {
             string customerName = null;
@@ -107,11 +142,7 @@ namespace ThreeAmigos.CustomerApp.Services
         {
             string json = JsonConvert.SerializeObject(customerUpdateDto);
             HttpResponseMessage response = customerFac.CreateCustomer(json);
-            if (response.IsSuccessStatusCode)
-            {
-                HttpContext.Current.Response.Redirect("~/Default");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
             }
@@ -135,10 +166,10 @@ namespace ThreeAmigos.CustomerApp.Services
             HttpContext.Current.Response.Redirect("~/Default");
         }
 
-        public static bool HasAddressAndTel()
+        public static bool HasDeliveryDetails()
         {
             int id = GetUserId();
-            if (customerFac.HasAddressAndTel(id))
+            if (customerFac.HasDeliveryDetails(id))
             {
                 return true;
             }

@@ -22,6 +22,33 @@ namespace ThreeAmigos.CustomerApp {
         protected global::System.Web.UI.WebControls.Label nameLabel;
         
         /// <summary>
+        /// OrderFailedValidation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator OrderFailedValidation;
+        
+        /// <summary>
+        /// StockValidation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator StockValidation;
+        
+        /// <summary>
+        /// DeliveryValidation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator DeliveryValidation;
+        
+        /// <summary>
         /// quantitySpinner control.
         /// </summary>
         /// <remarks>
@@ -76,13 +103,13 @@ namespace ThreeAmigos.CustomerApp {
         protected global::System.Web.UI.WebControls.Label stockLevelLabel;
         
         /// <summary>
-        /// test control.
+        /// ReviewGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label test;
+        protected global::System.Web.UI.WebControls.GridView ReviewGridView;
         
         /// <summary>
         /// OrderButton control.

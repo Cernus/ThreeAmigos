@@ -6,6 +6,15 @@
             <asp:Label ID="nameLabel" runat="server">Product Name</asp:Label>
         </h1>
 
+        <!-- Validation -->
+        <div class="form-group">
+            <div class="row">
+                <asp:CustomValidator ID="OrderFailedValidation" CssClass="validationText" runat="server" OnServerValidate="OrderFailedValidation_ServerValidate" ErrorMessage="Error: Order Unsuccessful as Order Api is not yet implemented" />
+                <asp:CustomValidator ID="StockValidation" CssClass="validationText" runat="server" OnServerValidate="StockValidation_ServerValidate" ErrorMessage="Error: There in not enough of this Product in Stock to Complete the order" />
+                <asp:CustomValidator ID="DeliveryValidation" CssClass="validationText" runat="server" OnServerValidate="DeliveryValidation_ServerValidate" ErrorMessage="Error: You must have a Name, Address and Telephone Number before the Order can be completed" />
+            </div>
+        </div>
+
         <!-- Quantity -->
         <div class="form-group">
             <div class="row">
@@ -80,7 +89,24 @@
         </div>
 
         <!-- Reviews -->
-        <asp:Label ID="test" runat="server">[Reviews here]</asp:Label>
+        <h2>
+            <asp:Label runat="server">Reviews</asp:Label>
+        </h2>
+
+        <asp:GridView
+            ID="ReviewGridView"
+            CssClass="table table-condensed table-hover"
+            RowStyle-CssClass="filterRow"
+            runat="server"
+            UseAccessibleHeader="true"
+            AutoGenerateColumns="false">
+            <Columns>
+                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
+                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" SortExpression="CustomerName" />
+            </Columns>
+        </asp:GridView>
+
 
         <!-- TODO: Hyperlink full names of reviewers to navigate to CustomerReviews for that user -->
 

@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using ThreeAmigos.ReviewFacade.Models;
 
 namespace ThreeAmigos.ReviewFacade
@@ -95,7 +92,7 @@ namespace ThreeAmigos.ReviewFacade
         {
             //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            client.BaseAddress = new System.Uri("https://thamcoreviewservice20191204034645.azurewebsites.net/");
+            client.BaseAddress = new Uri("https://thamcoreviewservice20191204034645.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

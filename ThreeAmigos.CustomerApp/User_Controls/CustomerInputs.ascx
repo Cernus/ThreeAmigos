@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerInputs.ascx.cs" Inherits="CustomerApp.User_Controls.CustomerInputs" %>
-<!--TODO: Add validaton for Username, Password, etc -->
 <!-- Username -->
 <div class="form-group">
     <div class="row">
@@ -8,6 +7,7 @@
         </div>
         <div class="col-md-8">
             <asp:TextBox ID="usernameTextBox" CssClass="form-control textBoxStyling" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator id="usernameValidator" CssClass="validationText" runat="server" controltovalidate="usernameTextBox" errormessage="Please enter a Username" />
         </div>
     </div>
 </div>
@@ -19,7 +19,8 @@
             <asp:Label runat="server"><strong>Password</strong></asp:Label>
         </div>
         <div class="col-md-8">
-            <asp:TextBox ID="passwordTextBox" CssClass="form-control textBoxStyling" runat="server"></asp:TextBox>
+            <asp:TextBox ID="passwordTextBox" TextMode="Password" CssClass="form-control textBoxStyling" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator id="passwordValidator" CssClass="validationText" runat="server" controltovalidate="passwordTextBox" errormessage="Please enter a Password" />
         </div>
     </div>
 </div>

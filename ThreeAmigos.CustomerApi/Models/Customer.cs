@@ -1,13 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-// TODO: Create different models for the different ways in which Customer is used; Login, SellTo, etc
-
-// Migrations:
-// PMC
-// add-migration [fileName] -outputdir Models/Migrations
-// update-database
-
 namespace ThreeAmigos.CustomerApi.Models
 {
     public class Customer

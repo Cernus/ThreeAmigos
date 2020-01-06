@@ -8,11 +8,6 @@ using Newtonsoft.Json.Serialization;
 using ThreeAmigos.CustomerApi.Models;
 using ThreeAmigos.CustomerApi.Repositories;
 
-// Dependancy Injection
-//https://stackoverflow.com/questions/42356411/how-to-design-a-repository-pattern-with-dependency-injection-in-asp-net-core-mvc
-
-// TODO: Watch video Visual Studio DevOps pipeline deployment
-
 namespace ThreeAmigos.CustomerApi
 {
     public class Startup

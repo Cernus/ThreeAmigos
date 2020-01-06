@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ThreeAmigos.CustomerApp
-{
-
-
-    public partial class CreateReview
-    {
-
+namespace ThreeAmigos.CustomerApp {
+    
+    
+    public partial class CreateReview {
+        
         /// <summary>
         /// productNameLabel control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label productNameLabel;
-
+        
         /// <summary>
         /// ratingSpinner control.
         /// </summary>
@@ -31,7 +29,16 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ratingSpinner;
-
+        
+        /// <summary>
+        /// RatingValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RatingValidator;
+        
         /// <summary>
         /// bodyTextBox control.
         /// </summary>
@@ -40,7 +47,16 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox bodyTextBox;
-
+        
+        /// <summary>
+        /// descriptionValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator descriptionValidator;
+        
         /// <summary>
         /// submitButton control.
         /// </summary>
@@ -49,7 +65,7 @@ namespace ThreeAmigos.CustomerApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitButton;
-
+        
         /// <summary>
         /// backButton control.
         /// </summary>

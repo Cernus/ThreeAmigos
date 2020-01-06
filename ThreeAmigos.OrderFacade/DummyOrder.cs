@@ -18,9 +18,6 @@ namespace ThreeAmigos.OrderFacade
 
         public string GetInvoices(int id)
         {
-            // TODO: Id currently not used
-            // TODO: Assign orders to customers (Do not return all products for each id in the query string)
-
             switch (id)
             {
                 case 2:
@@ -32,88 +29,6 @@ namespace ThreeAmigos.OrderFacade
                 default:
                     return null;
             }
-
-            //products1.Add(new ProductOrder()
-            //{
-            //    ProductId = 1,
-            //    Name = "Product1",
-            //    Category = "Furniture",
-            //    Brand = "Undercutters",
-            //    Description = "Description of product",
-            //    TotalPrice = 100.99,
-            //    Quantity = 3,
-            //    OrderId = 0
-            //});
-
-            //products1.Add(new ProductOrder()
-            //{
-            //    ProductId = 2,
-            //    Name = "Product2",
-            //    Category = "Electronic",
-            //    Brand = "Undercutters",
-            //    Description = "Description of product",
-            //    TotalPrice = 80.00,
-            //    Quantity = 1,
-            //    OrderId = 0
-            //});
-
-            //products1.Add(new ProductOrder()
-            //{
-            //    ProductId = 3,
-            //    Name = "Product3",
-            //    Category = "Furniture",
-            //    Brand = "Dodby Dealers",
-            //    Description = "Description of product",
-            //    TotalPrice = 17600.99,
-            //    Quantity = 99,
-            //    OrderId = 0
-            //});
-
-            //products2.Add(new ProductOrder()
-            //{
-            //    ProductId = 2,
-            //    Name = "Product2",
-            //    Category = "Furniture",
-            //    Brand = "Undercutters",
-            //    Description = "Description of product",
-            //    TotalPrice = 100.99,
-            //    Quantity = 3,
-            //    OrderId = 1
-            //});
-
-            //products2.Add(new ProductOrder()
-            //{
-            //    ProductId = 1,
-            //    Name = "Product1",
-            //    Category = "Electronic",
-            //    Brand = "Undercutters",
-            //    Description = "Example of a long description. Example of a long description. Example of a long description. Example of a long description. Example of a long description.",
-            //    TotalPrice = 80.00,
-            //    Quantity = 1,
-            //    OrderId = 1
-            //});
-
-            //products3.Add(new ProductOrder()
-            //{
-            //    ProductId = 3,
-            //    Name = "Product3",
-            //    Category = "Furniture",
-            //    Brand = "Undercutters",
-            //    Description = "Description of product",
-            //    TotalPrice = 100.99,
-            //    Quantity = 3,
-            //    OrderId = 2
-            //});
-
-            //double invoiceCost1 = GetInvoiceCost(invoices[0]);
-            //double invoiceCost2 = GetInvoiceCost(invoices[1]);
-            //double invoiceCost3 = GetInvoiceCost(invoices[2]);
-
-            //invoices[0].invoiceCost = invoiceCost1;
-            //invoices[1].invoiceCost = invoiceCost2;
-            //invoices[2].invoiceCost = invoiceCost3;
-
-            //return JsonConvert.SerializeObject(invoices);
         }
 
         private List<Invoice> GetOrders2()
@@ -207,7 +122,6 @@ namespace ThreeAmigos.OrderFacade
             return invoices;
         }
 
-        // TODO
         private List<Invoice> GetOrders3()
         {
             List<Invoice> invoices = new List<Invoice>();
@@ -292,23 +206,95 @@ namespace ThreeAmigos.OrderFacade
             return invoices;
         }
 
-        // TODO
         private List<Invoice> GetOrders4()
         {
-            return null;
-        }
+            List<Invoice> invoices = new List<Invoice>();
 
-        // TODO: Delete
-        private double GetInvoiceCost(Invoice invoice)
-        {
-            double price = 0.00;
+            var products1 = new List<ProductOrder>();
+            var products2 = new List<ProductOrder>();
+            var products3 = new List<ProductOrder>();
 
-            for (int i = 0; i < invoice.Products.Count; i++)
+            // Add Product to products lists
+            products1.Add(new ProductOrder()
             {
-                price += invoice.Products[i].TotalPrice;
-            }
+                ProductId = 1,
+                TotalPrice = 0,
+                Quantity = 3,
+                OrderId = 0
+            });
 
-            return price;
+            products1.Add(new ProductOrder()
+            {
+                ProductId = 2,
+                TotalPrice = 0,
+                Quantity = 1,
+                OrderId = 0
+            });
+
+            products1.Add(new ProductOrder()
+            {
+                ProductId = 3,
+                TotalPrice = 0,
+                Quantity = 99,
+                OrderId = 0
+            });
+
+            products2.Add(new ProductOrder()
+            {
+                ProductId = 2,
+                TotalPrice = 0,
+                Quantity = 3,
+                OrderId = 1
+            });
+
+            products2.Add(new ProductOrder()
+            {
+                ProductId = 1,
+                TotalPrice = 0,
+                Quantity = 1,
+                OrderId = 1
+            });
+
+            products3.Add(new ProductOrder()
+            {
+                ProductId = 3,
+                TotalPrice = 0,
+                Quantity = 3,
+                OrderId = 2
+            });
+
+            // Make Invoices
+            invoices.Add(new Invoice()
+            {
+                OrderId = 0,
+                Reference = "ref1",
+                Status = "Pending",
+                Products = products1,
+                OrderDate = new DateTime(2019, 10, 10).ToShortDateString(),
+                InvoiceCost = 0
+            });
+
+            invoices.Add(new Invoice()
+            {
+                OrderId = 1,
+                Reference = "ref2",
+                Status = "Cancelled",
+                Products = products2,
+                OrderDate = new DateTime(2019, 10, 11).ToShortDateString(),
+                InvoiceCost = 0
+            });
+
+            invoices.Add(new Invoice()
+            {
+                OrderId = 2,
+                Reference = "ref3",
+                Status = "Delivered",
+                Products = products3,
+                OrderDate = new DateTime(2019, 10, 12).ToShortDateString(),
+                InvoiceCost = 0
+            });
+
+            return invoices;
         }
     }
 }

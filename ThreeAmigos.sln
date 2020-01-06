@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.OrderFacade", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.ReviewFacade", "ThreeAmigos.ReviewFacade\ThreeAmigos.ReviewFacade.csproj", "{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeAmigos.CustomerAppTests", "ThreeAmigos.CustomerAppTests\ThreeAmigos.CustomerAppTests.csproj", "{B57A4FC6-DA59-4F4E-9BC7-113B27BB4475}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C0FF5C-FE61-412F-8CF3-3963B4C7B8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57A4FC6-DA59-4F4E-9BC7-113B27BB4475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57A4FC6-DA59-4F4E-9BC7-113B27BB4475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57A4FC6-DA59-4F4E-9BC7-113B27BB4475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57A4FC6-DA59-4F4E-9BC7-113B27BB4475}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

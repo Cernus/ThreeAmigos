@@ -10,6 +10,6 @@ namespace ThreeAmigos.OrderFacade.Models
         public double InvoiceCost { get; set; }
         public string Status { get; set; }
         public string OrderDate { get; set; }
-        public List<ProductOrder> Products {get; set;} // TODO: Just have Product Id and Quantity
+        public List<ProductOrder> Products {get; set;}
     }
 }

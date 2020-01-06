@@ -13,8 +13,6 @@ namespace ThreeAmigos.ProductFacade
         string GetProductsFromCustomerApi();
         string GetProduct(int id);
         bool InStock(int id, int quantity);
-        // TODO
-        // See what have done to get Customer Id.
         string GetProductName(int id);
         HttpResponseMessage StoreProductData(string json);
     }

@@ -242,6 +242,7 @@
     <Compile Include="CustomerReviews.aspx.designer.cs">
       <DependentUpon>CustomerReviews.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerName.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="CustomerDetail.aspx.cs">
       <DependentUpon>CustomerDetail.aspx</DependentUpon>

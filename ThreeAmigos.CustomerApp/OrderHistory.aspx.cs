@@ -10,13 +10,11 @@ using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    // TODO: Get Product Information from Product Service, not Dummy Order
-    // TODO: Disable Write review link if a review for that product and customer already exist (call Review Service)
     public partial class OrderHistory : Page
     {
         private List<Invoice> data;
         private List<Product> products;
-        private List<int> writtenReviewsProductIds; //TODO
+        private List<int> writtenReviewsProductIds;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -47,7 +45,6 @@ namespace ThreeAmigos.CustomerApp
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                //string st = InvoiceGridView.DataKeys[e.Row.RowIndex].Value.ToString();
                 int orderId = Int32.Parse((InvoiceGridView.DataKeys[e.Row.RowIndex]["OrderId"]).ToString());
 
                 GridView ProductOrderGridView = (GridView)e.Row.FindControl("ProductOrderGridView");
@@ -62,7 +59,7 @@ namespace ThreeAmigos.CustomerApp
 
         protected void ProductOrderGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            // Handle if writtenReviewsProductIds is null
+            // TODO: Handle if writtenReviewsProductIds is null
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {

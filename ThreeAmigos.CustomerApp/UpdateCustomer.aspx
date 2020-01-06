@@ -2,7 +2,6 @@
 
 <%@ Register Src="~/User_Controls/CustomerInputs.ascx" TagName="CustomerInputs" TagPrefix="uc" %>
 
-<%--TODO: Make all other aspx async as above--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <h1>Update Customer</h1>

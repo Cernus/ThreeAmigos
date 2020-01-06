@@ -21,9 +21,17 @@ namespace ThreeAmigos.CustomerApp
 
             List<Review> reviews = ReviewService.GetCustomerReviews();
 
-            ProductReviewLabel.Text = reviews[0].CustomerName + "'s Reviews";
-            ReviewGridView.DataSource = reviews;
-            ReviewGridView.DataBind();
+            if(reviews.Count > 0)
+            {
+                ProductReviewLabel.Text = reviews[0].CustomerName + "'s Reviews";
+                ReviewGridView.DataSource = reviews;
+                ReviewGridView.DataBind();
+            }
+            else
+            {
+                // TODO: Handle case for no Reviews
+            }
+            
         }
     }
 }

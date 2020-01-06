@@ -4,7 +4,6 @@ using ThreeAmigos.CustomerApp.Services;
 
 namespace ThreeAmigos.CustomerApp
 {
-    // TODO: Add validation for creating/updating customer (especially tel number)
     public partial class CreateCustomer : Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -20,6 +19,7 @@ namespace ThreeAmigos.CustomerApp
         {
             CustomerUpdateDto customerUpdateDto = customerInputs.GetUpdatedCustomer();
             UserService.CreateUser(customerUpdateDto);
+            Security.Authenticate(customerUpdateDto.Username, customerUpdateDto.Password);
         }
     }
 }

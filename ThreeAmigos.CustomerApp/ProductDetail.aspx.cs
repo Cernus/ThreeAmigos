@@ -21,6 +21,7 @@ namespace ThreeAmigos.CustomerApp
                 // Redirect to Home page if product does not exist
                 PopulatePage();
                 ShowReviews();
+                HideButton();
             }
         }
 
@@ -58,6 +59,18 @@ namespace ThreeAmigos.CustomerApp
             {
                 throw new NullReferenceException("Product not found");
             }
+
+            List<Review> reviews = ReviewService.GetProductReviews();
+
+            if (reviews.Count > 0)
+            {
+                ReviewGridView.DataSource = reviews;
+                ReviewGridView.DataBind();
+            }
+            else
+            {
+                // TODO: Handle case for no Reviews
+            }
         }
 
         private void ShowReviews()
@@ -73,69 +86,97 @@ namespace ThreeAmigos.CustomerApp
             }
         }
 
+        private void HideButton()
+        {
+            if (!Security.IsLoggedIn())
+            {
+                OrderButton.Visible = false;
+            }
+        }
+
         protected void OrderButton_Click(object sender, EventArgs e)
         {
-            OrderDto orderDto = null;
+            // Order Created through validation events if they all pass
 
-            // Check that user has a delivery address and telephone number
-            if (UserService.HasAddressAndTel())
-            {
-                productId = Int32.Parse(Request.QueryString["Id"]);
-
-                // Get quantity
-                int quantity;
-                try
-                {
-                    quantity = Int32.Parse(quantitySpinner.Value);
-                }
-                catch
-                {
-                    quantity = 1;
-                }
-
-                // Check if StockLevel >= quantity
-                if (ProductService.InStock(productId, quantity))
-                {
-                    ProductService.DecrementStock(productId, quantity);
-
-                    // Create Model
-                    orderDto = new OrderDto
-                    {
-                        ProductId = productId,
-                        Quantity = quantity,
-                        TimeOrdered = DateTime.Now.Date
-                    };
-
-                    if (orderDto != null)
-                    {
-                        // Send Order to InvoiceApi
-                        OrderService.CreateOrder(orderDto);
-
-                        // Redirect to OrderSuccess
-
-                    }
-                    else
-                    {
-                        // TODO: Display to user that item is currently out of stock
-                        Response.Redirect("~/Default");
-                    }
-                }
-                else
-                {
-                    // TODO: Finish coding what happens when order is successful/unsuccessful
-                }
-
-
-            }
-            else
-            {
-                // TODO: Display validation message on page
-            }
+            Response.Redirect("~/Default");
         }
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
             Security.RedirectToPreviousPage();
+        }
+
+        protected void OrderFailedValidation_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+
+            // Get quantity
+            int quantity;
+            try
+            {
+                quantity = Int32.Parse(quantitySpinner.Value);
+            }
+            catch
+            {
+                quantity = 1;
+            }
+
+            // Create Model
+            OrderDto orderDto = new OrderDto
+            {
+                ProductId = productId,
+                Quantity = quantity,
+                TimeOrdered = DateTime.Now.Date
+            };
+
+            try
+            {
+                OrderService.CreateOrder(orderDto);
+                args.IsValid = true;
+
+            }
+            catch
+            {
+                args.IsValid = false;
+
+            }
+        }
+
+        protected void StockValidation_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            productId = Int32.Parse(Request.QueryString["Id"]);
+
+            // Get quantity
+            int quantity;
+            try
+            {
+                quantity = Int32.Parse(quantitySpinner.Value);
+            }
+            catch
+            {
+                quantity = 1;
+            }
+
+            if (ProductService.InStock(productId, quantity))
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+        }
+
+        protected void DeliveryValidation_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (UserService.HasDeliveryDetails())
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
         }
     }
 }

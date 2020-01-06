@@ -32,28 +32,51 @@ namespace ThreeAmigos.CustomerApp
             }
 
             // Display Name
-            fullnameLabel.Text = customer.FirstName + " " + customer.SecondName;
+            string firstName = "";
+            string secondName = "";
 
-            // Display Address
-            String[] address = customer.Address.Split(',');
-            HtmlGenericControl[] addressLabel = new HtmlGenericControl[address.Length];
-            for (int i = 0; i < address.Length; i++)
+            if (customer.FirstName != null)
             {
-                addressLabel[i] = new HtmlGenericControl("label");
-                addressLabel[i].InnerText = address[i];
-                addressLabel[i].Attributes.Add("class", "form-control");
+                firstName = customer.FirstName;
             }
 
-            for (int i = 0; i < addressLabel.Length; i++)
+            if (customer.SecondName != null)
             {
-                addressDiv.Controls.Add(addressLabel[i]);
+                secondName = customer.SecondName;
+            }
+
+            fullnameLabel.Text = firstName + " " + secondName;
+
+            // Display Address
+            if (customer.Address != null)
+            {
+                String[] address = customer.Address.Split(',');
+                HtmlGenericControl[] addressLabel = new HtmlGenericControl[address.Length];
+                for (int i = 0; i < address.Length; i++)
+                {
+                    addressLabel[i] = new HtmlGenericControl("label");
+                    addressLabel[i].InnerText = address[i];
+                    addressLabel[i].Attributes.Add("class", "form-control");
+                }
+
+                for (int i = 0; i < addressLabel.Length; i++)
+                {
+                    addressDiv.Controls.Add(addressLabel[i]);
+                }
             }
 
             // Display Email Address
-            emailAddressLabel.Text = customer.EmailAddress;
+            if (customer.EmailAddress != null)
+            {
+                emailAddressLabel.Text = customer.EmailAddress;
+            }
 
             // Display Tel Number
-            telLabel.Text = customer.Tel;
+            if (customer.Tel != null)
+            {
+                telLabel.Text = customer.Tel;
+
+            }
 
             // Display Can Buy
             try
@@ -71,24 +94,7 @@ namespace ThreeAmigos.CustomerApp
             {
                 canBuyLabel.Text = "No";
             }
+
         }
-
-        // TODO: Delete
-        // Dummy data
-        private Object[] GetDummyData()
-        {
-            String username = "John_Doe1";
-            String firstName = "John";
-            String secondName = "Doe";
-            String address = "49 Balsham Road,Harrold,MK43 5XZ";
-            String emailAddresss = "johndoe@gmail.com";
-            String tel = "07015234278";
-            Boolean sell_to = true;
-
-            Object[] dummy = { username, firstName, secondName, address, emailAddresss, tel, sell_to };
-
-            return dummy;
-        }
-
     }
 }
