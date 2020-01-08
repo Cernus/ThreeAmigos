@@ -6,8 +6,6 @@ using ThreeAmigos.ProductFacade.Models;
 
 namespace ThreeAmigos.CustomerAppTests.Services
 {
-    // TODO: Add Tests that are expected to fail. E.g. GetProduct(id = 0) - does not exist
-
     [TestClass]
     public class ProductFacTests
     {

@@ -9,7 +9,6 @@ using ThreeAmigos.ReviewFacade;
 
 namespace ThreeAmigos.CustomerApp.Services
 {
-    // TODO: Put in error handling (e.g. != null for all methods in all Service classes)
     public static class ReviewService
     {
         //private static DummyReview reviewFac = new DummyReview();
@@ -43,7 +42,6 @@ namespace ThreeAmigos.CustomerApp.Services
                 List<Product> products = ProductService.GetProductsDefaultStoreApi();
                 List<Review> customerReviews = new List<Review>();
 
-                // TODO: Copy this safe method of creating a list to all other times in solution
                 foreach (ReviewDto reviewDto in reviewsDto)
                 {
                     try

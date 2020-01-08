@@ -11,6 +11,7 @@ namespace ThreeAmigos.CustomerApp
 {
     public partial class ProductDetail : System.Web.UI.Page
     {
+        private static bool validation = true;
         private int productId;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,7 +70,7 @@ namespace ThreeAmigos.CustomerApp
             }
             else
             {
-                // TODO: Handle case for no Reviews
+
             }
         }
 
@@ -98,7 +99,10 @@ namespace ThreeAmigos.CustomerApp
         {
             // Order Created through validation events if they all pass
 
-            Response.Redirect("~/Default");
+            if(validation)
+            {
+                Response.Redirect("~/Default");
+            }
         }
 
         protected void BackButton_Click(object sender, EventArgs e)
@@ -138,6 +142,7 @@ namespace ThreeAmigos.CustomerApp
             catch
             {
                 args.IsValid = false;
+                validation = false;
 
             }
         }
@@ -159,11 +164,12 @@ namespace ThreeAmigos.CustomerApp
 
             if (ProductService.InStock(productId, quantity))
             {
-                args.IsValid = false;
+                args.IsValid = true;
             }
             else
             {
-                args.IsValid = true;
+                args.IsValid = false;
+                validation = false;
             }
         }
 
@@ -176,6 +182,7 @@ namespace ThreeAmigos.CustomerApp
             else
             {
                 args.IsValid = false;
+                validation = false;
             }
         }
     }

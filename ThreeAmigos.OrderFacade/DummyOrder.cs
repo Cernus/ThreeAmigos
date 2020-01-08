@@ -24,7 +24,7 @@ namespace ThreeAmigos.OrderFacade
                     return JsonConvert.SerializeObject(GetOrders2());
                 case 3:
                     return JsonConvert.SerializeObject(GetOrders3());
-                case 4:
+                case 5:
                     return JsonConvert.SerializeObject(GetOrders4());
                 default:
                     return null;

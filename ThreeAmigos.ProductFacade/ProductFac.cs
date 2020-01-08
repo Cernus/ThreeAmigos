@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IdentityModel.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,12 @@ namespace ThreeAmigos.ProductFacade
             var uri = "api/stock/";
 
             // Get all products from StoreService
-            HttpResponseMessage response = client.GetAsync(uri).Result;
+            HttpResponseMessage response = client.Result.GetAsync(uri).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
             }
 
-            // TODO: Surround in try and catch for all of these in each facade?
             productList = response.Content.ReadAsAsync<List<ProductDto>>().Result;
             client.Dispose();
             return JsonConvert.SerializeObject(productList);
@@ -43,13 +43,12 @@ namespace ThreeAmigos.ProductFacade
             var uri = "api/Customers/ProductDetails";
 
             // Get all products from CustomerApi
-            HttpResponseMessage response = client.GetAsync(uri).Result;
+            HttpResponseMessage response = client.Result.GetAsync(uri).Result;
             if(!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
             }
 
-            // TODO: Surround in try and catch for all of these in each facade?
             productList = response.Content.ReadAsAsync<List<ProductDto>>().Result;
             client.Dispose();
             return JsonConvert.SerializeObject(productList);
@@ -65,7 +64,7 @@ namespace ThreeAmigos.ProductFacade
             var uri = "api/product?id=";
 
             //Get product by id from StoreService
-            HttpResponseMessage response = client.GetAsync(uri + id).Result;
+            HttpResponseMessage response = client.Result.GetAsync(uri + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 product = response.Content.ReadAsAsync<ProductDto>().Result;
@@ -89,7 +88,7 @@ namespace ThreeAmigos.ProductFacade
 
             var uri = "api/customers/ProductName/";
 
-            HttpResponseMessage response = client.GetAsync(uri + id).Result;
+            HttpResponseMessage response = client.Result.GetAsync(uri + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 productName = response.Content.ReadAsStringAsync().Result;
@@ -100,7 +99,7 @@ namespace ThreeAmigos.ProductFacade
 
                 var uri2 = "api/productName?id=";
 
-                HttpResponseMessage response2 = client2.GetAsync(uri2 + id).Result;
+                HttpResponseMessage response2 = client2.Result.GetAsync(uri2 + id).Result;
                 if (!response.IsSuccessStatusCode)
                 {
                     productName = response2.Content.ReadAsStringAsync().Result;
@@ -115,7 +114,6 @@ namespace ThreeAmigos.ProductFacade
             return productName.Replace("\"", ""); ;
         }
 
-        // TODO: Redesign so it checks whether there is enough in stock to match the quantity being ordered
         // Check if product is currently in stock
         public bool InStock(int id, int quantity)
         {
@@ -125,7 +123,7 @@ namespace ThreeAmigos.ProductFacade
 
             var uri = "api/instock?Id=";
 
-            HttpResponseMessage response = client.GetAsync(uri + id + "&Quantity=" + quantity).Result;
+            HttpResponseMessage response = client.Result.GetAsync(uri + id + "&Quantity=" + quantity).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");
@@ -151,7 +149,7 @@ namespace ThreeAmigos.ProductFacade
 
             var uri = "api/store/decrementstock";
 
-            HttpResponseMessage response = client.PostAsJsonAsync<List<DecrementProductDto>>(uri, list).Result;
+            HttpResponseMessage response = client.Result.PostAsJsonAsync<List<DecrementProductDto>>(uri, list).Result;
 
             if (!response.IsSuccessStatusCode)
             {
@@ -184,7 +182,7 @@ namespace ThreeAmigos.ProductFacade
             foreach (int id in productIds)
             {
                 // Note: Is this pointing to the deployed version of Customer Api?
-                var response = client.GetAsync(uri + id).Result;
+                var response = client.Result.GetAsync(uri + id).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     int? validId = response.Content.ReadAsAsync<int>().Result;
@@ -209,12 +207,12 @@ namespace ThreeAmigos.ProductFacade
                 if (existingProductIds.Contains(productIds[i]))
                 {
                     // Update existing Product record
-                    response = client.PutAsJsonAsync<ProductDto>(putUri + productIds[i], productDtos[i]).Result;
+                    response = client.Result.PutAsJsonAsync<ProductDto>(putUri + productIds[i], productDtos[i]).Result;
                 }
                 else
                 {
                     // Create new Product record
-                    response = client.PostAsJsonAsync<ProductDto>(postUri, productDtos[i]).Result;
+                    response = client.Result.PostAsJsonAsync<ProductDto>(postUri, productDtos[i]).Result;
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -227,24 +225,33 @@ namespace ThreeAmigos.ProductFacade
         }
 
         // Create a client that is used to communicate with CustomerApi
-        private static HttpClient CustomerApiClient()
+        private async static Task<HttpClient> CustomerApiClient()
         {
-            //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            // TODO: Redirect back to deployed Api
             client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
-            //client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
 
         // Create a client that is used to communicate with StoreService
-        private static HttpClient StoreServiceClient()
+        private async static Task<HttpClient> StoreServiceClient()
         {
-            //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
+
             client.BaseAddress = new System.Uri("https://thamcostoreservice20191203112607.azurewebsites.net/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+
+            // TODO: Code for Auth server is commented out as it is not working
+            //var disco = await client.GetDiscoveryDocumentAsync("https://thamcauthserver.azurewebstes.net");
+            //var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            //{
+            //    Address = disco.TokenEndpoint,
+            //    ClientId = "thamco_customer_app",
+            //    ClientSecret = "customersecret",
+            //    Scope = "thamco_store_api"
+            //});
+            //client.SetBearerToken(tokenResponse.AccessToken);
+
             return client;
         }
     }

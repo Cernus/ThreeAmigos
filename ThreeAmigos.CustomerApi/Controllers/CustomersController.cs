@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 using ThreeAmigos.CustomerApi.Models;
 using ThreeAmigos.CustomerApi.Repositories;
 
-// TODO: Should Products stuff be in their own controller?
 namespace ThreeAmigos.CustomerApi.Controllers
 {
     [Route("api/customers/{action}")]
@@ -189,7 +189,6 @@ namespace ThreeAmigos.CustomerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSellTo(int id, [FromBody]string json)
         {
-            // TODO: Put this code in repository
             bool flag = false;
             try
             {

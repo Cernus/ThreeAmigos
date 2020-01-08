@@ -11,6 +11,6 @@ namespace ThreeAmigos.CustomerApp.Models
         public double InvoiceCost { get; set; }
         public string Status { get; set; }
         public string OrderDate { get; set; }
-        public List<ProductOrder> Products {get; set;} // TODO: Delete this
+        public List<ProductOrder> Products {get; set;}
     }
 }

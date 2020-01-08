@@ -59,8 +59,6 @@ namespace ThreeAmigos.CustomerApp
 
         protected void ProductOrderGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            // TODO: Handle if writtenReviewsProductIds is null
-
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 // Get Product Id of each row

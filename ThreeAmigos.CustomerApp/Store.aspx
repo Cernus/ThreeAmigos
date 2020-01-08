@@ -40,7 +40,6 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <%--TODO: Format so Price displays number in £'s--%>
                 <asp:GridView
                     ID="StoreGridView"
                     CssClass="table table-condensed table-hover"

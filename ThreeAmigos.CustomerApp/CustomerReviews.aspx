@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerReviews.aspx.cs" Inherits="ThreeAmigos.CustomerApp.CustomerReviews" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <%-- TODO: Add Back button --%>
     <div class="container">
         <h1>
             <asp:Label ID="ProductReviewLabel" runat="server">[Customer]'s Reviews</asp:Label>

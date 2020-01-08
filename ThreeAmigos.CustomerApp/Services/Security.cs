@@ -22,7 +22,6 @@ namespace ThreeAmigos.CustomerApp.Services
 
             if (userId > 0)
             {
-                // TODO: Alter this so it gets the id of the current user instead of static int
                 FormsAuthentication.RedirectFromLoginPage(userId.ToString(), true);
             }
             else
@@ -120,8 +119,6 @@ namespace ThreeAmigos.CustomerApp.Services
 
         public static void RedirectIfReviewExists()
         {
-            // TODO: Reconfigure so json is parsed in Facades and throws an error if it cannot be done. Handle in Service classes by surrounding in
-            // a try-catch
             if(!IsAdmin() && ReviewService.ReviewExists())
             {
                 HttpContext.Current.Response.Redirect("~/Default");
@@ -148,8 +145,6 @@ namespace ThreeAmigos.CustomerApp.Services
 
             HttpContext.Current.Response.Redirect(absolutePath);
         }
-
-        // TODO: Delete
         public static bool CheckIfValidPreviousPage(object validPreviousPage)
         {
             // Get previous page as a string

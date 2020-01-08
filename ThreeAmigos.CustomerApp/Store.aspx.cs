@@ -14,9 +14,6 @@ namespace ThreeAmigos.CustomerApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // TODO: Handle case for no response from Store Api (allow user to navigate to ProductDetail page still from here)
-            // TODO: Don't throw error if Store Api is down - display error message
-            // TODO: E.g. use data stored in Customer Api but display a warning that the data may be out of date
             if (!IsPostBack)
             {
                 // No Security
@@ -25,7 +22,6 @@ namespace ThreeAmigos.CustomerApp
             }
         }
 
-        // TODO: Add column to "see all reviews" for product
         // Generate rows on GridView from Json object
         private void PopulatePage()
         {
@@ -33,7 +29,6 @@ namespace ThreeAmigos.CustomerApp
             StoreGridView.DataBind();
         }
 
-        // TODO: Add functionality for "All"
         // Adds elements to the Drop Down List
         private void PopulateDDL()
         {

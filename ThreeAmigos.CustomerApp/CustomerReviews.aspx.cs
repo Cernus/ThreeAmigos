@@ -17,8 +17,6 @@ namespace ThreeAmigos.CustomerApp
 
         private void PopulatePage()
         {
-            // TODO: Display alternate message if there are no reviews in the list
-
             List<Review> reviews = ReviewService.GetCustomerReviews();
 
             if(reviews.Count > 0)
@@ -29,7 +27,7 @@ namespace ThreeAmigos.CustomerApp
             }
             else
             {
-                // TODO: Handle case for no Reviews
+
             }
             
         }

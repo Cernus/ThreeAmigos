@@ -35,26 +35,32 @@ namespace ThreeAmigos.CustomerApp.Services
 
             // Get List of Invoices from Order Service
             string json = orderFac.GetInvoices(customerId);
-            List<Invoice> invoices = JsonConvert.DeserializeObject<List<Invoice>>(json);
-
-            // Add Product information to products in invoices
-            foreach (Invoice invoice in invoices)
+            List<Invoice> invoices = new List<Invoice>();
+            try
             {
-                foreach (ProductOrder productOrder in invoice.Products)
+                invoices = JsonConvert.DeserializeObject<List<Invoice>>(json);
+
+                // Add Product information to products in invoices
+                foreach (Invoice invoice in invoices)
                 {
-                    int productId = productOrder.ProductId;
+                    foreach (ProductOrder productOrder in invoice.Products)
+                    {
+                        int productId = productOrder.ProductId;
 
-                    Product productData = products.FirstOrDefault(p => p.Id == productOrder.ProductId);
+                        Product productData = products.FirstOrDefault(p => p.Id == productOrder.ProductId);
 
-                    productOrder.Name = productData.Name;
-                    productOrder.Category = productData.CategoryName;
-                    productOrder.Brand = productData.BrandName;
-                    productOrder.Description = productData.Description;
-                    productOrder.TotalPrice = (double)(productData.Price * productOrder.Quantity);
+                        productOrder.Name = productData.Name;
+                        productOrder.Category = productData.CategoryName;
+                        productOrder.Brand = productData.BrandName;
+                        productOrder.Description = productData.Description;
+                        productOrder.TotalPrice = (double)(productData.Price * productOrder.Quantity);
+                    }
                 }
             }
-
-            // TODO: Handle situation where product Id does not exist (return null?)
+            catch
+            {
+                return null;
+            }
 
             return invoices;
         }

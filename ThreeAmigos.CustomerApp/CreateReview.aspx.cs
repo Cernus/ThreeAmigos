@@ -7,7 +7,6 @@ namespace ThreeAmigos.CustomerApp
 {
     public partial class CreateReview : Page
     {
-        // TODO: Add validation on the spinner
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -17,8 +16,6 @@ namespace ThreeAmigos.CustomerApp
 
                 // Redirect to Home if this User has already submitted a Review for this Product
                 Security.RedirectIfReviewExists();
-
-                // TODO: Redirect to home if this User has not got an invoice containing this ProductId
 
                 PopulatePage();
             }

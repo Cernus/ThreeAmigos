@@ -23,8 +23,6 @@ namespace ThreeAmigos.CustomerApp
             string password = passwordLabel.Text;
 
             Security.Authenticate(username, password);
-
-            // TODO: Update LastSignedIn for this user
         }
     }
 }

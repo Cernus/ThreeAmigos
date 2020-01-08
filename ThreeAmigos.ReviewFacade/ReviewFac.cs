@@ -8,7 +8,6 @@ namespace ThreeAmigos.ReviewFacade
 {
     public class ReviewFac : IReviewFac
     {
-        // TODO: Have HttpResponse in all methods?
         // Create a Review in the Review Service
         public HttpResponseMessage CreateReview(string json)
         {
@@ -19,7 +18,6 @@ namespace ThreeAmigos.ReviewFacade
             ReviewDto reviewDto = JsonConvert.DeserializeObject<ReviewDto>(json);
             HttpResponseMessage response = client.PostAsJsonAsync<ReviewDto>(uri, reviewDto).Result;
 
-            // TODO: Handle situations when Service gives no response; do not throw an error. (Display error message on front end?)
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Received a bad response from the web service.");

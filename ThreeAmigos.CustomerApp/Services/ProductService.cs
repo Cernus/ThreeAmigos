@@ -9,8 +9,6 @@ namespace ThreeAmigos.CustomerApp.Services
 {
     public static class ProductService
     {
-        // TODO: Replace DummyProduct with ProductFac
-        //private static DummyProduct productFac = new DummyProduct();
         private static ProductFac productFac = new ProductFac();
 
         // Get Product by id
@@ -81,7 +79,6 @@ namespace ThreeAmigos.CustomerApp.Services
         public static void DecrementStock(int id, int quantity)
         {
             productFac.DecrementStock(id, quantity);
-            // TODO: Handle response message
         }
 
         public static string GetProductName(int id)

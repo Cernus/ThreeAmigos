@@ -27,7 +27,6 @@
             </div>
         </div>
 
-        <%-- TODO: Restyle so border outlines are invisible (differentiate from Quantity above --%>
         <!-- Category -->
         <div class="form-group">
             <div class="row">
@@ -107,8 +106,6 @@
             </Columns>
         </asp:GridView>
 
-
-        <!-- TODO: Hyperlink full names of reviewers to navigate to CustomerReviews for that user -->
 
         <%--Buttons--%>
         <div class="row">

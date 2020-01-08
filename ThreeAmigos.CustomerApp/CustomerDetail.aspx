@@ -6,8 +6,6 @@
             <asp:Label ID="usernameLabel" runat="server">Customer Detail</asp:Label>
         </h1>
         
-        <%-- TODO: Put in label that states if the user is inactive --%>
-
         <!-- FullName -->
         <div class="form-group">
             <div class="row">
@@ -67,9 +65,5 @@
                 </div>
             </div>
         </div>
-
-        <!-- TODO: registered -->
-        <!-- TODO: lastOnline -->
-
     </div>
 </asp:Content>

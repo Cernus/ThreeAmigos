@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using ThreeAmigos.ProductFacade.Models;
 
-//TODO: Create Facade for each objects that are being called from apis
 namespace ThreeAmigos.ProductFacade
 {
     public interface IProductFac

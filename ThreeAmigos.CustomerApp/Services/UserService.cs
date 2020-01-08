@@ -11,7 +11,6 @@ using ThreeAmigos.CustomerFacade;
 
 namespace ThreeAmigos.CustomerApp.Services
 {
-    // TODO: Look at singleton pattern for CustomerFac
     public static class UserService
     {
         private static CustomerFac customerFac = new CustomerFac();
@@ -95,7 +94,6 @@ namespace ThreeAmigos.CustomerApp.Services
 
             return customerName;
         }
-        // TODO: Delete if unused
         public static string GetCustomerName()
         {
             string customerName = null;

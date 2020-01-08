@@ -17,8 +17,6 @@ namespace ThreeAmigos.CustomerFacade
 
             var client = Client();
 
-            // TODO: Handle situations where a customerId that does not exist is sent to CustomerApi
-
             // Get customer by id from CustomerApi
             HttpResponseMessage response = client.GetAsync("api/customers/detail/" + id).Result;
             if (response.IsSuccessStatusCode)
@@ -39,8 +37,6 @@ namespace ThreeAmigos.CustomerFacade
             CustomerUpdateDto customerUpdateDto = null;
 
             var client = Client();
-
-            // TODO: Handle situations where a customerId that does not exist is sent to CustomerApi
 
             // Get customer by id from CustomerApi
             HttpResponseMessage response = client.GetAsync("api/customers/detail/" + id).Result;
@@ -197,11 +193,8 @@ namespace ThreeAmigos.CustomerFacade
         // Create a client that is used to communicate with CustomerApi
         private static HttpClient Client()
         {
-            //Authenticator = new HttpBasicAuthenticator("user", "password")
             HttpClient client = new HttpClient();
-            // TODO: Redirect back to deployed Api
             client.BaseAddress = new System.Uri("https://threeamigoscustomerapi.azurewebsites.net/");
-            //client.BaseAddress = new System.Uri("https://localhost:44301/");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
